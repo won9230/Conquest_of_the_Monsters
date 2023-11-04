@@ -9,6 +9,8 @@ public class PlayerAnimation : MonoBehaviour
 	{
 		anim = GetComponent<Animator>();
 	}
+
+	//플레이어 이동 애니메이션
 	public void DoMoveAnim(float _x, float _y)
 	{
 		int x = Mathf.Abs((int)_x);
@@ -25,7 +27,16 @@ public class PlayerAnimation : MonoBehaviour
 		{
 			anim.SetFloat("x", 0);
 		}
+	}
+	
+	//플레이어 공격 애니메이션
+	public void DoPlayerAttack()
+	{
+		anim.SetTrigger("Attack");
+	}
 
-
+	public float GetAnimPlayTime()
+	{
+		return anim.GetCurrentAnimatorStateInfo(0).length;
 	}
 }

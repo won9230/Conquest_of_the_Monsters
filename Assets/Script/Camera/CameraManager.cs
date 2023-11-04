@@ -43,6 +43,7 @@ public class CameraManager : MonoBehaviour
 	private void LateUpdate()
 	{
 		transform.position = transform.rotation * new Vector3(0, 0, -distance) + target.position;
+		target.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
 	}
 	private float ClampAngele(float angle, float min, float max)
 	{

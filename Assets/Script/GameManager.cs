@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void Awake()
+	{
+		DontDestroyOnLoad(gameObject);		//씬이 바뀌어도 파괴되지 않음
+		Cursor.visible = false;		//커서 안보이게 설정
+		Cursor.lockState = CursorLockMode.Locked;	//커서 잠금
+	}
 }

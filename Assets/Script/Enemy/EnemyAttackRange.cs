@@ -18,9 +18,9 @@ public class EnemyAttackRange : MonoBehaviour
 		{
 			enemyEntity.player = other.gameObject;
 			enemyEntity.state = EnemyEntity.State.CHASE;
+			Debug.Log("asdasdasd");
 		}
 	}
-
 	private void OnTriggerExit(Collider other)
 	{
 		if (other.CompareTag(player))

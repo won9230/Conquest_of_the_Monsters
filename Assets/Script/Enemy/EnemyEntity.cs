@@ -72,6 +72,7 @@ public class EnemyEntity : MonoBehaviour
 					break;
 				case State.CHASE:
 					//TODO : 플레이어가 범위안에 들어오면 추격함
+					mesh.isStopped = false;
 					if (player != null)
 					{
 						mesh.SetDestination(player.gameObject.transform.position);
@@ -80,8 +81,11 @@ public class EnemyEntity : MonoBehaviour
 					anim.SetBool("Move", true);
 					break;
 				case State.ATTACK:
+					anim.SetBool("Move", false);
 					anim.SetTrigger("Attack");
-					//TODO : 플레이어랑 가까이 왔을 때 배틀 페이지로 넘어감
+					mesh.isStopped = true;
+					mesh.velocity = Vector3.zero;
+					//TODO : 플레이어랑 가까이 왔을 때 공격함
 					break;
 				default:
 					break;

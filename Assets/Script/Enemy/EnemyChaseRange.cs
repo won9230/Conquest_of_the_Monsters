@@ -18,6 +18,7 @@ public class EnemyChaseRange : MonoBehaviour
 		{
 			enemyEntity.player = other.gameObject;
 			enemyEntity.state = EnemyEntity.State.CHASE;
+			
 		}
 	}
 	private void OnTriggerExit(Collider other)

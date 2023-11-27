@@ -10,4 +10,6 @@ public class GameManager : MonoBehaviour
 		Cursor.visible = false;		//커서 안보이게 설정
 		Cursor.lockState = CursorLockMode.Locked;	//커서 잠금
 	}
+
+
 }

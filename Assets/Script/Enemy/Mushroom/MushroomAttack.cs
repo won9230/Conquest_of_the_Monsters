@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MushroomAttack : MonoBehaviour
 {
-	public GameObject attackColl;
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if(other.tag == "Player")
 		{
 			BattleCutControl.instance.BattleCutPlay();
+			Debug.Log("공격을 당했다!");
 		}
 	}
 }

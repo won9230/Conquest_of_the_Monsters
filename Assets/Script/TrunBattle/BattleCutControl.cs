@@ -31,6 +31,7 @@ public class BattleCutControl : MonoBehaviour
 
 	public void BattleCutPlay()
 	{
+
 		pd.Play(ta[0]);
 	}
 

@@ -15,7 +15,16 @@ public class BaseEnemy
 		ELECTRIC
 	}
 
+	public enum Rarity
+	{
+		COMMON,
+		UNCOMMON,
+		RARE,
+		SUPERRARE
+	}
+
 	public Type EnemyType;
+	public Rarity rarity;
 
 	public float baseHp;
 	public float curHp;

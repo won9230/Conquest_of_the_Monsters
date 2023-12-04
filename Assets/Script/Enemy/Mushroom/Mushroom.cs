@@ -15,7 +15,6 @@ public class Mushroom : EnemyEntity
 	{
 		while (true)
 		{
-			Debug.Log(state);
 			switch (state)
 			{
 				case State.IDLE:

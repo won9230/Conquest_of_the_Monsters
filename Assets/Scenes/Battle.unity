@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy:
-    name: Mushroom
+    name: BattleMushroom
     EnemyType: 0
     rarity: 0
     baseHp: 5
@@ -721,6 +721,7 @@ MonoBehaviour:
   BSM: {fileID: 0}
   currentState: 0
   hpBarSlider: {fileID: 1233564868}
+  heroToAttack: {fileID: 0}
 --- !u!65 &263118617
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1173,6 +1174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleState: 0
+  performList: []
   heroInBattle: []
   enemyInBattle: []
 --- !u!1 &592437902
@@ -2183,7 +2185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy:
-    name: Cactus
+    name: BattleCactus
     EnemyType: 2
     rarity: 0
     baseHp: 10
@@ -2197,6 +2199,7 @@ MonoBehaviour:
   BSM: {fileID: 0}
   currentState: 0
   hpBarSlider: {fileID: 609239813}
+  heroToAttack: {fileID: 0}
 --- !u!1 &1164169197
 GameObject:
   m_ObjectHideFlags: 0

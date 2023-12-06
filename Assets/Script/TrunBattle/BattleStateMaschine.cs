@@ -12,7 +12,7 @@ public class BattleStateMaschine : MonoBehaviour
 	}
 	public PerformAction battleState;
 
-	public List<HandleTrun> preformList = new List<HandleTrun>();
+	public List<HandleTrun> performList = new List<HandleTrun>();
 	public List<GameObject> heroInBattle = new List<GameObject>();
 	public List<GameObject> enemyInBattle = new List<GameObject>();
 
@@ -30,8 +30,24 @@ public class BattleStateMaschine : MonoBehaviour
 		switch (battleState)
 		{
 			case PerformAction.Wait:
+				if(performList.Count > 0)
+				{
+					battleState = PerformAction.TakeAction;
+				}
 				break;
 			case PerformAction.TakeAction:
+				GameObject performer = GameObject.Find(performList[0].attacker);
+				if(performList[0].Type == "Enemy")
+				{
+					EnemyStateMaschine ESM = performer.GetComponent<EnemyStateMaschine>();
+					ESM.heroToAttack = performList[0].attackersTarget;
+					ESM.currentState = EnemyStateMaschine.TurnState.Action;
+				}
+				if(performList[0].Type == "Hero")
+				{
+
+				}
+				battleState = PerformAction.PerformAction;
 				break;
 			case PerformAction.PerformAction:
 				break;
@@ -42,6 +58,6 @@ public class BattleStateMaschine : MonoBehaviour
 	
 	public void CollectActions(HandleTrun input)
 	{
-		preformList.Add(input);
+		performList.Add(input);
 	}
 }

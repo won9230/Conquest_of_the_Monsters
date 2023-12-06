@@ -24,6 +24,10 @@ public class EnemyStateMaschine : MonoBehaviour
 
 	private Vector3 startPosition;
 
+	private bool actionStarted = false;
+	public GameObject heroToAttack;
+	private float animSpeed = 5f;
+
 	private void Start()
 	{
 		currentState = TurnState.Processing;
@@ -47,6 +51,7 @@ public class EnemyStateMaschine : MonoBehaviour
 				//idle state
 				break;
 			case TurnState.Action:
+				StartCoroutine(TimeForAction());
 				break;
 			case TurnState.Dead:
 				break;
@@ -56,6 +61,7 @@ public class EnemyStateMaschine : MonoBehaviour
 
 
 	}
+	//행동 가능 체크
 	private void UpgradeProgressBar()
 	{
 		cur_cooldown = cur_cooldown + Time.deltaTime;
@@ -67,12 +73,59 @@ public class EnemyStateMaschine : MonoBehaviour
 		}
 	}
 
+	
 	private void ChooseAction()
 	{
 		HandleTrun myAttack = new HandleTrun();
 		myAttack.attacker = enemy.name;
+		myAttack.Type = "Enemy";
 		myAttack.attackersGamgeObject = this.gameObject;
 		myAttack.attackersTarget = BSM.heroInBattle[Random.Range(0, BSM.heroInBattle.Count)];
 		BSM.CollectActions(myAttack);
+	}
+
+	private IEnumerator TimeForAction()
+	{
+		if (actionStarted)
+		{
+			yield break;
+		}
+		actionStarted = true;
+		//영웅 근처에서 공격 애니메이션
+		Vector3 heroPosition = new Vector3(heroToAttack.transform.position.x, heroToAttack.transform.position.y,heroToAttack.transform.position.z + 1.5f);
+
+		while (MoveTowardsEnemy(heroPosition))
+		{
+			yield return null;
+		}
+
+		//대기
+		yield return new WaitForSeconds(0.5f);
+		//대미지
+
+		//원래위치로 복귀
+		Vector3 firstPosition = startPosition;
+		while (MoveTowardsStart(firstPosition))
+		{
+			yield return null;
+		}
+		//BSM에서 performer제거
+		BSM.performList.RemoveAt(0);
+		//BSM를 Wait으로 변경
+		BSM.battleState = BattleStateMaschine.PerformAction.Wait;
+
+		actionStarted = false;
+		//적 상태 초기화
+		cur_cooldown = 0f;
+		currentState = TurnState.Processing;
+	}
+
+	private bool MoveTowardsEnemy(Vector3 target)
+	{
+		return target != (transform.position = Vector3.MoveTowards(transform.position,target,animSpeed * Time.deltaTime));
+	}
+	private bool MoveTowardsStart(Vector3 target)
+	{
+		return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
 	}
 }

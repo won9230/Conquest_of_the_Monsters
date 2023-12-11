@@ -29,6 +29,8 @@ public class BattleCutControl : MonoBehaviour
 		pd = GetComponent<PlayableDirector>();
 	}
 
+
+	//적 한테 공격을 받으면 컷신 발동
 	public void BattleCutPlay()
 	{
 

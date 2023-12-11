@@ -61,6 +61,7 @@ public class EnemyStateMaschine : MonoBehaviour
 
 
 	}
+
 	//행동 가능 체크
 	private void UpgradeProgressBar()
 	{
@@ -73,7 +74,7 @@ public class EnemyStateMaschine : MonoBehaviour
 		}
 	}
 
-	
+	//공격할 오브젝트를 정한다.
 	private void ChooseAction()
 	{
 		HandleTrun myAttack = new HandleTrun();
@@ -120,12 +121,16 @@ public class EnemyStateMaschine : MonoBehaviour
 		currentState = TurnState.Processing;
 	}
 
+	//플레이어가 적에게 이동
 	private bool MoveTowardsEnemy(Vector3 target)
 	{
+		//성공시 true
 		return target != (transform.position = Vector3.MoveTowards(transform.position,target,animSpeed * Time.deltaTime));
 	}
+	//플레이어가 자기 자리로 이동
 	private bool MoveTowardsStart(Vector3 target)
 	{
+		//성공시 true
 		return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
 	}
 }

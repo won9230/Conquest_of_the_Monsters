@@ -29,11 +29,22 @@ public class HeroStateMaschine : MonoBehaviour
 	private bool actionStarted = false;
 	private Vector3 startPosition;
 	private float animSpeed = 10f;
-
+	//dead
 	private bool alive = true;
+	//heroPanel
+	private HeroPanelStats stats;
+	public GameObject heroPanel;
+	private Transform heroPanelSpacer;
+
 
 	private void Start()
 	{
+		//spaer찾기
+		heroPanelSpacer = GameObject.Find("Canvas").transform.Find("HeroPanel").transform.Find("HeroPanelSpacer");
+		//패널 만들기
+		CreateHeroPanel();
+
+
 		cur_cooldown = Random.Range(1, 2.5f);
 		select.gameObject.SetActive(false);
 		BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMaschine>();
@@ -126,8 +137,8 @@ public class HeroStateMaschine : MonoBehaviour
 
 		//대기
 		yield return new WaitForSeconds(0.5f);
-		//대미지
-
+		//데미지
+		DoDamage();
 		//원래위치로 복귀
 		Vector3 firstPosition = startPosition;
 		while (MoveTowardsStart(firstPosition))
@@ -158,12 +169,43 @@ public class HeroStateMaschine : MonoBehaviour
 		return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
 	}
 
+	//영웅 데미지
 	public void TakeDamage(float getDamageAmount)
 	{
 		hero.curHp -= getDamageAmount;
 		if (hero.curHp <= 0)
 		{
+			hero.curHp = 0;
 			currentState = TurnState.Dead;
 		}
+		UpdateHeroPanel();
+	}
+
+	//데미지
+	private void DoDamage()
+	{
+		float calc_damage = hero.curATK + BSM.performList[0].choosenAttack.attackDamage;
+		enemyToAttack.GetComponent<EnemyStateMaschine>().TakeDamage(calc_damage);
+	}
+
+	//영웅 패널 만들기
+	private void CreateHeroPanel()
+	{
+		heroPanel = Instantiate(heroPanel);
+		stats = heroPanel.GetComponent<HeroPanelStats>();
+		stats.heroName.text = hero.theName;
+		stats.heroHp.text = "HP: " + hero.curHp;
+		stats.heroMp.text = "MP: " + hero.curMp;
+		hpBarSlider = stats.progressBar;
+
+		heroPanel.transform.SetParent(heroPanelSpacer, false);
+		
+	}
+	//스텟 업데이트
+	private void UpdateHeroPanel()
+	{
+		stats.heroHp.text = "HP: " + hero.curHp;
+		stats.heroMp.text = "MP: " + hero.curMp;
+
 	}
 }

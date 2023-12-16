@@ -19,7 +19,7 @@ public class EnemyStateMaschine : MonoBehaviour
 	public TurnState currentState;
 
 	private float cur_cooldown = 0f;
-	private float max_cooldown = 3f;
+	private float max_cooldown = 10f;	//10f
 
 	private Vector3 startPosition;
 
@@ -143,5 +143,15 @@ public class EnemyStateMaschine : MonoBehaviour
 	{
 		float calc_damage = enemy.curATK + BSM.performList[0].choosenAttack.attackDamage;
 		heroToAttack.GetComponent<HeroStateMaschine>().TakeDamage(calc_damage);
+	}
+
+	public void TakeDamage(float getDamageAmount)
+	{
+		enemy.curHp -= getDamageAmount;
+		if(enemy.curHp <= 0)
+		{
+			enemy.curHp = 0;
+			currentState = TurnState.Dead;
+		}
 	}
 }

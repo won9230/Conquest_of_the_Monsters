@@ -89,17 +89,24 @@ public class HeroStateMaschine : MonoBehaviour
 					BSM.attackPanel.SetActive(false);
 					BSM.enemySelectPanel.SetActive(false);
 					//performlist에서 삭제
-					for (int i = 0; i < BSM.performList.Count; i++)
+					if(BSM.heroInBattle.Count > 0)
 					{
-						if(BSM.performList[i].attackersGamgeObject == this.gameObject)
+						for (int i = 0; i < BSM.performList.Count; i++)
 						{
-							BSM.performList.Remove(BSM.performList[i]);
+							if(BSM.performList[i].attackersGamgeObject == this.gameObject)
+							{
+								BSM.performList.Remove(BSM.performList[i]);
+							}
+							if(BSM.performList[i].attackersTarget == this.gameObject)
+							{
+								BSM.performList[i].attackersTarget = BSM.heroInBattle[Random.Range(0, BSM.heroInBattle.Count)];
+							}
 						}
 					}
 					//색 변경(컷씬으로 대체)
 					Debug.Log(this.gameObject.name + " Dead");
 					//히어로 입력 리셋
-					BSM.heroInput = BattleStateMaschine.HeroGUI.Activate;
+					BSM.battleState = BattleStateMaschine.PerformAction.checkAlive;
 					alive = false;
 				}
 				break;
@@ -148,12 +155,22 @@ public class HeroStateMaschine : MonoBehaviour
 		//BSM에서 performer제거
 		BSM.performList.RemoveAt(0);
 		//BSM를 Wait으로 변경
-		BSM.battleState = BattleStateMaschine.PerformAction.Wait;
+		if (BSM.battleState != BattleStateMaschine.PerformAction.Win && BSM.battleState != BattleStateMaschine.PerformAction.Lose)
+		{
+			BSM.battleState = BattleStateMaschine.PerformAction.Wait;
 
+			//적 상태 초기화
+			cur_cooldown = 0f;
+			currentState = TurnState.Processing;
+		}
+		else
+		{
+			currentState = TurnState.Waiting;
+		}
+
+
+		//코루틴 종료
 		actionStarted = false;
-		//적 상태 초기화
-		cur_cooldown = 0f;
-		currentState = TurnState.Processing;
 	}
 
 	//플레이어가 적에게 이동

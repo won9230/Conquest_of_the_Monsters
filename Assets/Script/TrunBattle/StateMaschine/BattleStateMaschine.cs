@@ -9,7 +9,10 @@ public class BattleStateMaschine : MonoBehaviour
 	{
 		Wait,
 		TakeAction,
-		PerformAction
+		PerformAction,
+		checkAlive,
+		Win,
+		Lose
 	}
 	public PerformAction battleState;
 
@@ -44,6 +47,7 @@ public class BattleStateMaschine : MonoBehaviour
 	public GameObject magicButton;
 	private List<GameObject> atkBtns = new List<GameObject>();
 
+	private List<GameObject> enemyBtns = new List<GameObject>();
 
 	private void Start()
 	{
@@ -99,6 +103,34 @@ public class BattleStateMaschine : MonoBehaviour
 				battleState = PerformAction.PerformAction;
 				break;
 			case PerformAction.PerformAction:
+				//idle
+				break;
+			case PerformAction.checkAlive:
+				if(heroInBattle.Count < 1)
+				{
+					battleState = PerformAction.Lose;
+					//배틀 짐
+					Debug.Log("배틀 패배");
+					for (int i = 0; i < heroInBattle.Count; i++)
+					{
+						heroInBattle[i].GetComponent<HeroStateMaschine>().currentState = HeroStateMaschine.TurnState.Waiting;
+					}
+				}
+				else if(enemyInBattle.Count < 1)
+				{
+					battleState = PerformAction.Win;
+					//배틀 이김
+					Debug.Log("배틀 승리");
+				}
+				else
+				{
+					ClearAttackPanel();
+					heroInput = HeroGUI.Activate;
+				}
+				break;
+			case PerformAction.Win:
+				break;
+			case PerformAction.Lose:
 				break;
 			default:
 				break;
@@ -138,8 +170,16 @@ public class BattleStateMaschine : MonoBehaviour
 	}
 
 	//UI에 Enemy버튼과 Text 띄우기
-	private void EnemyButtons()
+	public void EnemyButtons()
 	{
+		//전체 삭제
+		foreach(GameObject enemyBtn in enemyBtns)
+		{
+			Destroy(enemyBtn);
+		}
+		enemyBtns.Clear();
+
+		//버튼 생성
 		foreach (GameObject enemy in enemyInBattle)
 		{
 			GameObject newButton = Instantiate(enemyButton);
@@ -153,6 +193,7 @@ public class BattleStateMaschine : MonoBehaviour
 			button.enemyPrefab = enemy;
 
 			newButton.transform.SetParent(spacer,false);
+			enemyBtns.Add(newButton);
 		}
 	}
 
@@ -175,16 +216,24 @@ public class BattleStateMaschine : MonoBehaviour
 	private void HeroInputDone()
 	{
 		performList.Add(heroChoise);
-		enemySelectPanel.SetActive(false);
-		foreach(GameObject atkBtn in atkBtns)
-		{
-			Destroy(atkBtn);		//???
-		}
-		atkBtns.Clear();
+		ClearAttackPanel();
 
 		heroToManger[0].transform.Find("Selector").gameObject.SetActive(false);
 		heroToManger.RemoveAt(0);
 		heroInput = HeroGUI.Activate;
+	}
+
+	private void ClearAttackPanel()
+	{
+		enemySelectPanel.SetActive(false);
+		attackPanel.SetActive(false);
+		magicPanel.SetActive(false);
+
+		foreach (GameObject atkBtn in atkBtns)
+		{
+			Destroy(atkBtn);        //???
+		}
+		atkBtns.Clear();
 	}
 
 	private void CreateAttackButtons()

@@ -19,7 +19,7 @@ public class EnemyStateMaschine : MonoBehaviour
 	public TurnState currentState;
 
 	private float cur_cooldown = 0f;
-	private float max_cooldown = 10f;	//10f
+	private float max_cooldown = 3f;	//10f
 
 	private Vector3 startPosition;
 
@@ -27,6 +27,9 @@ public class EnemyStateMaschine : MonoBehaviour
 	public GameObject heroToAttack;
 	private float animSpeed = 10f;
 	public GameObject select;
+
+	//alive
+	private bool alive = true;
 
 	private void Start()
 	{
@@ -54,6 +57,43 @@ public class EnemyStateMaschine : MonoBehaviour
 				StartCoroutine(TimeForAction());
 				break;
 			case TurnState.Dead:
+				if (!alive)
+				{
+					return;
+				}
+				else
+				{
+					//enemy로 태그 변경
+					this.gameObject.tag = "DeadEnemy";
+					//영웅을 공격하지 않음
+					BSM.enemyInBattle.Remove(this.gameObject);
+					//selector 비활성화
+					select.SetActive(false);
+					//미리 들어가 있는 공격을 삭제
+					if(BSM.enemyInBattle.Count > 0)
+					{
+						for (int i = 0; i < BSM.performList.Count; i++)
+						{
+							if (BSM.performList[i].attackersGamgeObject == this.gameObject)
+							{
+								BSM.performList.Remove(BSM.performList[i]);
+								i--;
+							}
+							if (BSM.performList[i].attackersTarget == this.gameObject)
+							{
+								BSM.performList[i].attackersTarget = BSM.enemyInBattle[Random.Range(0, BSM.enemyInBattle.Count)];
+							}
+						}
+					}
+					//애니메이션 재생
+					Debug.Log(this.gameObject.name + " Dead!");
+
+					alive = false;
+					//적 선택 버튼 초기화
+					BSM.EnemyButtons();
+					//생존 체크
+					BSM.battleState = BattleStateMaschine.PerformAction.checkAlive;
+				}
 				break;
 			default:
 				break;

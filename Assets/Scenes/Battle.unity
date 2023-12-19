@@ -1671,7 +1671,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.35446712, y: 0.24266672}
-  m_AnchoredPosition: {x: -0.25421143, y: 12.606003}
+  m_AnchoredPosition: {x: -0.25421143, y: 12.605988}
   m_SizeDelta: {x: -48.815, y: 24.83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1834381849
@@ -2730,6 +2730,14 @@ PrefabInstance:
       propertyPath: hero.intellect
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8805109579024828068, guid: 685430380a70a9b43b7d9a1e885cf636, type: 3}
+      propertyPath: hero.attacks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8805109579024828068, guid: 685430380a70a9b43b7d9a1e885cf636, type: 3}
+      propertyPath: hero.attacks.Array.data[0]
+      value: 
+      objectReference: {fileID: 5270375922750806575, guid: 04b07da06b7c66c4d9ffb7b90c526b9b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6181479598394951649, guid: 685430380a70a9b43b7d9a1e885cf636, type: 3}
@@ -2771,6 +2779,14 @@ PrefabInstance:
       propertyPath: hpBarSlider
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3324523972366726192, guid: 267a3b895fc46b644bd7764466ea6efe, type: 3}
+      propertyPath: hero.attacks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3324523972366726192, guid: 267a3b895fc46b644bd7764466ea6efe, type: 3}
+      propertyPath: hero.attacks.Array.data[0]
+      value: 
+      objectReference: {fileID: 93124202142127063, guid: e90bb2f54ee8f85419f21c381d13dfaa, type: 3}
     - target: {fileID: 3324523972366726192, guid: 267a3b895fc46b644bd7764466ea6efe, type: 3}
       propertyPath: hero.magicAttacks.Array.size
       value: 2
@@ -2899,11 +2915,11 @@ PrefabInstance:
       objectReference: {fileID: 953143314}
     - target: {fileID: 7619187998831724036, guid: 9cc0a84c33606f6488e47eee69dc3a5e, type: 3}
       propertyPath: enemy.curHp
-      value: 200
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7619187998831724036, guid: 9cc0a84c33606f6488e47eee69dc3a5e, type: 3}
       propertyPath: enemy.baseHp
-      value: 200
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7619187998831724036, guid: 9cc0a84c33606f6488e47eee69dc3a5e, type: 3}
       propertyPath: enemy.attacks.Array.size
@@ -2946,6 +2962,14 @@ PrefabInstance:
       propertyPath: select
       value: 
       objectReference: {fileID: 953143314}
+    - target: {fileID: 772397389570017743, guid: 72309b3b4a7ea4a4ca3919d1dec9cf80, type: 3}
+      propertyPath: enemy.curHp
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 772397389570017743, guid: 72309b3b4a7ea4a4ca3919d1dec9cf80, type: 3}
+      propertyPath: enemy.baseHp
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 772397389570017743, guid: 72309b3b4a7ea4a4ca3919d1dec9cf80, type: 3}
       propertyPath: enemy.attacks.Array.size
       value: 2

@@ -30,9 +30,9 @@ public class Mushroom : EnemyEntity
 					//TODO : 그냥 이따금 랜덤으로 움직임
 					anim.SetBool("Move", true);
 					moveTime = 0;
-					Vector3 mtmp = transform.position - UnityEngine.Random.insideUnitSphere * 2;
-					Vector3 ptmp = transform.position + UnityEngine.Random.insideUnitSphere * 2;
-					int random = UnityEngine.Random.Range(0, 1);
+					Vector3 mtmp = transform.position - Random.insideUnitSphere * 2;
+					Vector3 ptmp = transform.position + Random.insideUnitSphere * 2;
+					int random = Random.Range(0, 1);
 					if (random == 1)
 					{
 						mesh.SetDestination(mtmp);
@@ -67,7 +67,6 @@ public class Mushroom : EnemyEntity
 					mesh.velocity = Vector3.zero;
 					mesh.updatePosition = false;
 					mesh.updateRotation = false;
-					Debug.Log(mesh.velocity);
 					anim.SetBool("Move", false);
 					anim.SetTrigger("Attack");
 					playerDist = Vector3.Distance(player.gameObject.transform.position, this.gameObject.transform.position);

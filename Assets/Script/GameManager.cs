@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
 			Debug.Log("GameManager가 중복되서 삭제되었습니다");
 		}
 		DontDestroyOnLoad(gameObject);
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	private void Update()
@@ -93,6 +95,9 @@ public class GameManager : MonoBehaviour
 		SceneManager.LoadScene(regions[curRegions].battleScene);
 		//영웅 초기화
 		gotAttack = false;
+
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
 	}
 	
 	public void LoadNextScene()

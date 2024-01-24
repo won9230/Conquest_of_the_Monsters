@@ -15,11 +15,16 @@ public class PlayerAnimation : MonoBehaviour
 	{
 		int x = Mathf.Abs((int)_x);
 		int y = Mathf.Abs((int)_y);
-		if(x == 0 && y == 1)
+		//Debug.Log("x" + x + "y" + y);
+		if(x == 0 && y >= 1)
 		{
 			anim.SetFloat("x", y);
 		}
-		else if(x == 1 && y == 0)
+		else if(x >= 1 && y == 0)
+		{
+			anim.SetFloat("x", x);
+		}
+		else if(x >= 1 && y >= 1)
 		{
 			anim.SetFloat("x", x);
 		}

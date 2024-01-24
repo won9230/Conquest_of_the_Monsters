@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class Mushroom : EnemyEntity
 {
+	public int actionRadius = 4;
 	private void Start()
 	{
 		mesh = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -21,7 +23,7 @@ public class Mushroom : EnemyEntity
 					//TODO : 플레이어가 멀어지면 자신의 구역으로 돌아서 이 상태로 변경
 					anim.SetBool("Move", false);
 					moveTime++;
-					if (moveTime >= 4)
+					if (moveTime >= 30)
 					{
 						state = State.MOVE;
 					}
@@ -30,8 +32,8 @@ public class Mushroom : EnemyEntity
 					//TODO : 그냥 이따금 랜덤으로 움직임
 					anim.SetBool("Move", true);
 					moveTime = 0;
-					Vector3 mtmp = transform.position - Random.insideUnitSphere * 2;
-					Vector3 ptmp = transform.position + Random.insideUnitSphere * 2;
+					Vector3 mtmp = transform.position - Random.insideUnitSphere * actionRadius;
+					Vector3 ptmp = transform.position + Random.insideUnitSphere * actionRadius;
 					int random = Random.Range(0, 1);
 					if (random == 1)
 					{
@@ -54,7 +56,7 @@ public class Mushroom : EnemyEntity
 						mesh.SetDestination(player.gameObject.transform.position);
 						playerDist = Vector3.Distance(player.gameObject.transform.position, this.gameObject.transform.position);
 						
-						if (playerDist <= 1.5f)
+						if (playerDist <= enemyAttackRange)
 						{
 							state = State.ATTACK;
 						}
@@ -63,15 +65,15 @@ public class Mushroom : EnemyEntity
 					break;
 				case State.ATTACK:
 					//TODO : 플레이어랑 가까이 왔을 때 공격함
+					anim.SetBool("Move", false);
 					mesh.isStopped = true;
 					mesh.velocity = Vector3.zero;
 					mesh.updatePosition = false;
-					mesh.updateRotation = false;
-					anim.SetBool("Move", false);
+					//mesh.updateRotation = false;
 					anim.SetTrigger("Attack");
 					playerDist = Vector3.Distance(player.gameObject.transform.position, this.gameObject.transform.position);
 					
-					if (player != null && playerDist >= 1.5f)
+					if (player != null && playerDist >= enemyAttackRange)
 					{
 						state = State.CHASE;
 					}
@@ -80,8 +82,14 @@ public class Mushroom : EnemyEntity
 				default:
 					break;
 			}
-			yield return new WaitForSeconds(0.2f);
+			yield return new WaitForSeconds(0.1f);
 		}
 
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.blue;
+		Gizmos.DrawWireSphere(transform.position, 1.5f);
 	}
 }

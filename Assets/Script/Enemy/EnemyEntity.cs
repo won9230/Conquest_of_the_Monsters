@@ -24,8 +24,8 @@ public class EnemyEntity : MonoBehaviour
 	public new string name;
 	public int hp;
 	public int mp;
-	public int range;
-	[SerializeField] private float enemyAttackRange;
-	[SerializeField] private GameObject attackRange;
+	//public int range;
+	public float enemyAttackRange = 1.5f;
+	//[SerializeField] private GameObject chaseRange;
 	[HideInInspector] public GameObject player;
 }

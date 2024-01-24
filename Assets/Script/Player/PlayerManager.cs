@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-	[Tooltip("플레이어 속도")] public int anySpeed;
+	[Tooltip("플레이어 걷기 속도")] public int anySpeed;
+	[Tooltip("플레이어 걷기 속도")] public int runSpeed;
 	public bool isAttack = false;	//플레이어가 공격 중인지 확인
 
 	private new Rigidbody rigidbody;
@@ -18,7 +20,16 @@ public class PlayerManager : MonoBehaviour
 	{
 		if (!isAttack)
 		{
-			DoMove();
+			if (Input.GetKey(KeyCode.LeftShift))
+			{
+				//플레이어가 달릴 때
+				DoMove(runSpeed,2);
+			}
+			else
+			{
+				//플레이어가 걸을 때
+				DoMove(anySpeed,1);
+			}
 		}
 
 		if(Input.GetMouseButtonDown(0) && !isAttack)
@@ -28,15 +39,15 @@ public class PlayerManager : MonoBehaviour
 	}
 
 	//플레이어 이동
-	private void DoMove()
+	private void DoMove(int _speed, int _runMotion)
 	{
 		float h = Input.GetAxisRaw("Horizontal");
 		float v = Input.GetAxisRaw("Vertical");
 		Vector3 moveH = transform.right * h;
 		Vector3 moveV = transform.forward * v;
-		Vector3 velocity = (moveH + moveV).normalized * anySpeed;
+		Vector3 velocity = (moveH + moveV).normalized * _speed;
 		rigidbody.MovePosition(transform.position + velocity * Time.deltaTime);
-		anim.DoMoveAnim(h,v);
+		anim.DoMoveAnim(h * _runMotion, v * _runMotion);
 	}
 
 	//플레이어 공격

@@ -12,9 +12,10 @@ public class Mushroom : EnemyEntity
 		anim = GetComponent<Animator>();
 		StartCoroutine(CheckState());
 	}
-	private int moveTime = 0;
+	private int curMoveTime = 0;
 	IEnumerator CheckState()
 	{
+		int moveTime = Random.Range(25, 35);
 		while (true)
 		{
 			switch (state)
@@ -22,16 +23,21 @@ public class Mushroom : EnemyEntity
 				case State.IDLE:
 					//TODO : 플레이어가 멀어지면 자신의 구역으로 돌아서 이 상태로 변경
 					anim.SetBool("Move", false);
-					moveTime++;
-					if (moveTime >= 30)
+					curMoveTime++;
+					if (curMoveTime >= moveTime)
 					{
+						moveTime = Random.Range(25, 35);
 						state = State.MOVE;
 					}
 					break;
 				case State.MOVE:
 					//TODO : 그냥 이따금 랜덤으로 움직임
 					anim.SetBool("Move", true);
-					moveTime = 0;
+					curMoveTime = 0;
+					mesh.isStopped = false;
+					mesh.ResetPath();
+					mesh.updatePosition = true;
+					mesh.updateRotation = true;
 					Vector3 mtmp = transform.position - Random.insideUnitSphere * actionRadius;
 					Vector3 ptmp = transform.position + Random.insideUnitSphere * actionRadius;
 					int random = Random.Range(0, 1);
@@ -43,6 +49,9 @@ public class Mushroom : EnemyEntity
 					{
 						mesh.SetDestination(ptmp);
 					}
+
+					Debug.Log(mtmp + " " + ptmp);
+					yield return new WaitForSeconds(1f);
 					state = State.IDLE;
 					break;
 				case State.CHASE:
@@ -69,7 +78,7 @@ public class Mushroom : EnemyEntity
 					mesh.isStopped = true;
 					mesh.velocity = Vector3.zero;
 					mesh.updatePosition = false;
-					//mesh.updateRotation = false;
+					mesh.updateRotation = false;
 					anim.SetTrigger("Attack");
 					playerDist = Vector3.Distance(player.gameObject.transform.position, this.gameObject.transform.position);
 					
@@ -82,6 +91,7 @@ public class Mushroom : EnemyEntity
 				default:
 					break;
 			}
+			Debug.Log(state);
 			yield return new WaitForSeconds(0.1f);
 		}
 

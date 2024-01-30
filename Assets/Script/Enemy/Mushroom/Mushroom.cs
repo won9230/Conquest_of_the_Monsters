@@ -91,7 +91,6 @@ public class Mushroom : EnemyEntity
 				default:
 					break;
 			}
-			Debug.Log(state);
 			yield return new WaitForSeconds(0.1f);
 		}
 

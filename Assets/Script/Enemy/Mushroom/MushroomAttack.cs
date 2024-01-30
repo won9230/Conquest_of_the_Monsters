@@ -11,7 +11,7 @@ public class MushroomAttack : MonoBehaviour
 		{
 			//BattleCutControl.instance.BattleCutPlay();
 			//GameManager.instance.gamestate = GameManager.GameState.Battle_State;
-			Debug.Log("공격을 당했다!");
+			Debug.Log("공격을 당했다! " + this.gameObject.name);
 		}
 	}
 }

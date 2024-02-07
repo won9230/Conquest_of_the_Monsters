@@ -119,14 +119,15 @@ public class HeroStateMaschine : MonoBehaviour
 	//행동 게이지 쿨타임
 	private void UpgradeProgressBar()
 	{
-		cur_cooldown = cur_cooldown + Time.deltaTime;
-		hpBarSlider.value = cur_cooldown / max_cooldown;
-		if (cur_cooldown >= max_cooldown)
-		{
-			currentState = TurnState.Addtolist;
-		}
+		//cur_cooldown = cur_cooldown + Time.deltaTime;
+		//hpBarSlider.value = cur_cooldown / max_cooldown;
+		//if (cur_cooldown >= max_cooldown)
+		//{
+		//	currentState = TurnState.Addtolist;
+		//}
 	}
 
+	//적 공격
 	private IEnumerator TimeForAction()
 	{
 		if (actionStarted)

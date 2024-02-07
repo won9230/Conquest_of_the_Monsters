@@ -52,8 +52,8 @@ public class GameManager : MonoBehaviour
 			Debug.Log("GameManager가 중복되서 삭제되었습니다");
 		}
 		DontDestroyOnLoad(gameObject);
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
+		//Cursor.visible = false;
+		//Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	private void Update()

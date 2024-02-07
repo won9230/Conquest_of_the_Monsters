@@ -49,8 +49,6 @@ public class Mushroom : EnemyEntity
 					{
 						mesh.SetDestination(ptmp);
 					}
-
-					Debug.Log(mtmp + " " + ptmp);
 					yield return new WaitForSeconds(1f);
 					state = State.IDLE;
 					break;
@@ -80,13 +78,13 @@ public class Mushroom : EnemyEntity
 					mesh.updatePosition = false;
 					mesh.updateRotation = false;
 					anim.SetTrigger("Attack");
+					yield return new WaitForSeconds(1f);
+
 					playerDist = Vector3.Distance(player.gameObject.transform.position, this.gameObject.transform.position);
-					
 					if (player != null && playerDist >= enemyAttackRange)
 					{
 						state = State.CHASE;
 					}
-					yield return new WaitForSeconds(1f);
 					break;
 				default:
 					break;

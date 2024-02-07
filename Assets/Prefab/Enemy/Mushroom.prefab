@@ -806,7 +806,6 @@ GameObject:
   - component: {fileID: 2482930705522270145}
   - component: {fileID: 7374301687454349572}
   - component: {fileID: 7537713553048974031}
-  - component: {fileID: 7810905672286270018}
   - component: {fileID: 47812916794073224}
   m_Layer: 0
   m_Name: Mushroom
@@ -947,18 +946,6 @@ MonoBehaviour:
   enemyAttackRange: 1.5
   player: {fileID: 0}
   actionRadius: 4
---- !u!114 &7810905672286270018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8771235923617234965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00725f732511c8d479a749de79ec30c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &47812916794073224
 MonoBehaviour:
   m_ObjectHideFlags: 0

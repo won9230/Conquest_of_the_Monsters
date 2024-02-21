@@ -635,6 +635,7 @@ MonoBehaviour:
     - {fileID: 5270375922750806575, guid: 04b07da06b7c66c4d9ffb7b90c526b9b, type: 3}
     EnemyType: 0
     rarity: 0
+    ahility: 5
   BSM: {fileID: 0}
   currentState: 0
   heroToAttack: {fileID: 0}

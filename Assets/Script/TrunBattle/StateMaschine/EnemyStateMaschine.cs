@@ -105,13 +105,7 @@ public class EnemyStateMaschine : MonoBehaviour
 	//행동 가능 체크
 	private void UpgradeProgressBar()
 	{
-		cur_cooldown = cur_cooldown + Time.deltaTime;
 
-
-		if (cur_cooldown >= max_cooldown)
-		{
-			currentState = TurnState.ChooseAction;
-		}
 	}
 
 	//공격할 오브젝트를 정한다.
@@ -122,6 +116,7 @@ public class EnemyStateMaschine : MonoBehaviour
 		myAttack.Type = "Enemy";
 		myAttack.attackersGamgeObject = this.gameObject;
 		myAttack.attackersTarget = BSM.heroInBattle[Random.Range(0, BSM.heroInBattle.Count)];
+		myAttack.ahility = enemy.ahility;
 
 		int num = Random.Range(0, enemy.attacks.Count);
 		myAttack.choosenAttack = enemy.attacks[num];
@@ -129,7 +124,8 @@ public class EnemyStateMaschine : MonoBehaviour
 
 		BSM.CollectActions(myAttack);
 	}
-
+	
+	//공격 동작
 	private IEnumerator TimeForAction()
 	{
 		if (actionStarted)
@@ -179,12 +175,14 @@ public class EnemyStateMaschine : MonoBehaviour
 		return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
 	}
 
+	//데미지 입음
 	private void DoDamage()
 	{
 		float calc_damage = enemy.curATK + BSM.performList[0].choosenAttack.attackDamage;
 		heroToAttack.GetComponent<HeroStateMaschine>().TakeDamage(calc_damage);
 	}
 
+	//데미지 입힘
 	public void TakeDamage(float getDamageAmount)
 	{
 		enemy.curHp -= getDamageAmount;

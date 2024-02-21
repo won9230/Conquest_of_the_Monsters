@@ -36,7 +36,11 @@ public class HeroStateMaschine : MonoBehaviour
 	public GameObject heroPanel;
 	private Transform heroPanelSpacer;
 
-
+	private void Awake()
+	{
+		BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMaschine>();
+		BSM.heroToManger.Add(this.gameObject);
+	}
 	private void Start()
 	{
 		//spaer√£±‚
@@ -47,7 +51,7 @@ public class HeroStateMaschine : MonoBehaviour
 
 		cur_cooldown = Random.Range(1, 2.5f);
 		select.gameObject.SetActive(false);
-		BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMaschine>();
+
 		currentState = TurnState.Processing;
 		startPosition = this.transform.position;
 	}
@@ -60,7 +64,7 @@ public class HeroStateMaschine : MonoBehaviour
 				UpgradeProgressBar();
 				break;
 			case TurnState.Addtolist:
-				BSM.heroToManger.Add(this.gameObject);
+
 				currentState = TurnState.Waiting;
 				break;
 			case TurnState.Waiting:

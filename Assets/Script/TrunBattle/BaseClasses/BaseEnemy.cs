@@ -23,4 +23,7 @@ public class BaseEnemy : BaseClass
 
 	public Type EnemyType;
 	public Rarity rarity;
+	
+	[Tooltip("¹ÎÃ¸")]
+	public int ahility;     //¹ÎÃ¸ ÅÏ ¼ö¿¡ ¿µÇâ
 }

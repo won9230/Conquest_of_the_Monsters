@@ -64,13 +64,18 @@ public class BattleStateMaschine : MonoBehaviour
 	private void Start()
 	{
 		battleState = PerformAction.Wait;
-		//enemyInBattle.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+		enemyInBattle.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 		heroInBattle.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
 		heroInput = HeroGUI.Activate;
 
 		attackPanel.SetActive(false);
 		enemySelectPanel.SetActive(false);
 		magicPanel.SetActive(false);
+
+		heroChoise.attacker = heroToManger[0].name;
+		heroChoise.attackersGamgeObject = heroToManger[0];
+		heroChoise.Type = "Hero";
+		heroChoise.ahility = heroToManger[0].GetComponent<HeroStateMaschine>().hero.ahility;
 
 		EnemyButtons();
 	}
@@ -221,9 +226,10 @@ public class BattleStateMaschine : MonoBehaviour
 
 	public void Input1()	//attack ¹öÆ°
 	{
-		heroChoise.attacker = heroToManger[0].name;
-		heroChoise.attackersGamgeObject = heroToManger[0];
-		heroChoise.Type = "Hero";
+		//heroChoise.attacker = heroToManger[0].name;
+		//heroChoise.attackersGamgeObject = heroToManger[0];
+		//heroChoise.Type = "Hero";
+		//heroChoise.ahility = heroToManger[0].GetComponent<HeroStateMaschine>().hero.ahility;
 		heroChoise.choosenAttack = heroToManger[0].GetComponent<HeroStateMaschine>().hero.attacks[0];
 		attackPanel.SetActive(false);
 		enemySelectPanel.SetActive(true);

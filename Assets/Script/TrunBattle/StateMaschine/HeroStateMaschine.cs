@@ -123,12 +123,14 @@ public class HeroStateMaschine : MonoBehaviour
 	//행동 게이지 쿨타임
 	private void UpgradeProgressBar()
 	{
-		//cur_cooldown = cur_cooldown + Time.deltaTime;
-		//hpBarSlider.value = cur_cooldown / max_cooldown;
-		//if (cur_cooldown >= max_cooldown)
-		//{
-		//	currentState = TurnState.Addtolist;
-		//}
+		if (BSM.battleOrders[0].attackerName == this.name)
+		{
+			//Debug.Log("히어로 공격 실행 " + this.name);
+			currentState = TurnState.Addtolist;
+			BattleOrder tmpbattleOrder = BSM.battleOrders[0];
+			BSM.battleOrders.RemoveAt(0);
+			BSM.battleOrders.Add(tmpbattleOrder);
+		}
 	}
 
 	//적 공격

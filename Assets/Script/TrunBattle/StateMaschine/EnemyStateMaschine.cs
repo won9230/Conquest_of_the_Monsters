@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static BattleStateMaschine;
 
 public class EnemyStateMaschine : MonoBehaviour
 {
@@ -105,25 +106,36 @@ public class EnemyStateMaschine : MonoBehaviour
 	//행동 가능 체크
 	private void UpgradeProgressBar()
 	{
+		if (BSM.battleOrders[0].attackerName == this.name)
+		{
+			//Debug.Log("적공격 실행 " + this.name);
+			currentState = TurnState.ChooseAction;
+			BattleOrder tmpbattleOrder = BSM.battleOrders[0];
+            BSM.battleOrders.RemoveAt(0);
+			BSM.battleOrders.Add(tmpbattleOrder);
 
+		}
 	}
 
 	//공격할 오브젝트를 정한다.
 	private void ChooseAction()
 	{
 		HandleTrun myAttack = new HandleTrun();
-		myAttack.attacker = enemy.theName;
+		myAttack.attacker = this.name;
 		myAttack.Type = "Enemy";
 		myAttack.attackersGamgeObject = this.gameObject;
 		myAttack.attackersTarget = BSM.heroInBattle[Random.Range(0, BSM.heroInBattle.Count)];
-		myAttack.ahility = enemy.ahility;
 
 		int num = Random.Range(0, enemy.attacks.Count);
 		myAttack.choosenAttack = enemy.attacks[num];
-		Debug.Log(this.gameObject.name + " has choosen " + myAttack.choosenAttack.attackName + " and do " + myAttack.choosenAttack.attackDamage + " damage!");
+		//Debug.Log(this.gameObject.name + " has choosen " + myAttack.choosenAttack.attackName + " and do " + myAttack.choosenAttack.attackDamage + " damage!");
 
-		BSM.CollectActions(myAttack);
-	}
+		BSM.performList.Add(myAttack);
+        foreach (HandleTrun item in BSM.performList)
+        {
+			Debug.Log("핸들턴 " + item.attackersGamgeObject.name);
+        }
+    }
 	
 	//공격 동작
 	private IEnumerator TimeForAction()

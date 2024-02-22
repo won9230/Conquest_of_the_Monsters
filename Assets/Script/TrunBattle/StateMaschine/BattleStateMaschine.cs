@@ -17,6 +17,7 @@ public class BattleStateMaschine : MonoBehaviour
 	public PerformAction battleState;
 
 	public List<HandleTrun> performList = new List<HandleTrun>();
+	public List<BattleOrder> battleOrders = new List<BattleOrder>();
 	public List<GameObject> heroInBattle = new List<GameObject>();
 	public List<GameObject> enemyInBattle = new List<GameObject>();
 
@@ -68,14 +69,14 @@ public class BattleStateMaschine : MonoBehaviour
 		heroInBattle.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
 		heroInput = HeroGUI.Activate;
 
+		//순서 정하기
+		HeroOrderAdd();
+		EnemyOrderAdd();
+		BattleOrderSort();
+
 		attackPanel.SetActive(false);
 		enemySelectPanel.SetActive(false);
 		magicPanel.SetActive(false);
-
-		heroChoise.attacker = heroToManger[0].name;
-		heroChoise.attackersGamgeObject = heroToManger[0];
-		heroChoise.Type = "Hero";
-		heroChoise.ahility = heroToManger[0].GetComponent<HeroStateMaschine>().hero.ahility;
 
 		EnemyButtons();
 	}
@@ -170,7 +171,7 @@ public class BattleStateMaschine : MonoBehaviour
 				{
 					heroToManger[0].transform.Find("Selector").gameObject.SetActive(true);
 					heroChoise = new HandleTrun();
-						
+
 					attackPanel.SetActive(true);
 					CreateAttackButtons();
 
@@ -185,16 +186,51 @@ public class BattleStateMaschine : MonoBehaviour
 			case HeroGUI.Input2:
 				break;
 			case HeroGUI.Done:
+				
 				HeroInputDone();
 				break;
 		}
 	}
-	
 
-	public void CollectActions(HandleTrun input)
+	//히어로 battleOrder에 추가
+	private void HeroOrderAdd()
 	{
-		performList.Add(input);
+		for (int i = 0; i < heroInBattle.Count; i++)
+		{
+			BattleOrder newBattleOrder = new BattleOrder();
+			HeroStateMaschine tmpHero = heroInBattle[i].GetComponent<HeroStateMaschine>();
+			newBattleOrder.attackerName = tmpHero.name;
+			newBattleOrder.ahility = tmpHero.hero.ahility;
+			battleOrders.Add(newBattleOrder);
+		}
 	}
+
+	//적 battleOrder에 추가
+	private void EnemyOrderAdd()
+	{
+		for (int i = 0; i < enemyInBattle.Count; i++)
+		{
+			BattleOrder newBattleOrder = new BattleOrder();
+			EnemyStateMaschine tmpEnemy = enemyInBattle[i].GetComponent<EnemyStateMaschine>();
+			newBattleOrder.attackerName = tmpEnemy.name;
+			newBattleOrder.ahility = tmpEnemy.enemy.ahility;
+			battleOrders.Add(newBattleOrder);
+		}
+	}
+
+	//battleOrder정렬
+	private void BattleOrderSort()
+	{
+		battleOrders.Sort(delegate(BattleOrder a, BattleOrder b)
+		{
+			return a.ahility > b.ahility ? -1 : 1;
+		});
+	}
+
+	//public void CollectActions(HandleTrun input)
+	//{
+	//	performList.Add(input);
+	//}
 
 	//UI에 Enemy버튼과 Text 띄우기
 	public void EnemyButtons()
@@ -226,9 +262,9 @@ public class BattleStateMaschine : MonoBehaviour
 
 	public void Input1()	//attack 버튼
 	{
-		//heroChoise.attacker = heroToManger[0].name;
-		//heroChoise.attackersGamgeObject = heroToManger[0];
-		//heroChoise.Type = "Hero";
+		heroChoise.attacker = heroToManger[0].name;
+		heroChoise.attackersGamgeObject = heroToManger[0];
+		heroChoise.Type = "Hero";
 		//heroChoise.ahility = heroToManger[0].GetComponent<HeroStateMaschine>().hero.ahility;
 		heroChoise.choosenAttack = heroToManger[0].GetComponent<HeroStateMaschine>().hero.attacks[0];
 		attackPanel.SetActive(false);
@@ -243,6 +279,7 @@ public class BattleStateMaschine : MonoBehaviour
 
 	private void HeroInputDone()
 	{
+		Debug.Log("HeroInputDone 실행");
 		performList.Add(heroChoise);
 		ClearAttackPanel();
 

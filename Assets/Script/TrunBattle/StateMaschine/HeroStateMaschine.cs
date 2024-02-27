@@ -127,9 +127,9 @@ public class HeroStateMaschine : MonoBehaviour
 		{
 			//Debug.Log("히어로 공격 실행 " + this.name);
 			currentState = TurnState.Addtolist;
-			BattleOrder tmpbattleOrder = BSM.battleOrders[0];
-			BSM.battleOrders.RemoveAt(0);
-			BSM.battleOrders.Add(tmpbattleOrder);
+			//BattleOrder tmpbattleOrder = BSM.battleOrders[0];
+			//BSM.battleOrders.RemoveAt(0);
+			//BSM.battleOrders.Add(tmpbattleOrder);
 		}
 	}
 

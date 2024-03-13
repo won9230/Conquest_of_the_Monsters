@@ -83,6 +83,7 @@ public class BattleStateMaschine : MonoBehaviour
 
 	private void Update()
 	{
+		Debug.Log("GameState" + battleState);
 		switch (battleState)
 		{
 			case PerformAction.Wait:
@@ -284,7 +285,7 @@ public class BattleStateMaschine : MonoBehaviour
 		ClearAttackPanel();
 
 		heroToManger[0].transform.Find("Selector").gameObject.SetActive(false);
-		heroToManger.RemoveAt(0);
+		//heroToManger.RemoveAt(0);
 		heroInput = HeroGUI.Activate;
 	}
 
@@ -301,19 +302,20 @@ public class BattleStateMaschine : MonoBehaviour
 		atkBtns.Clear();
 	}
 
+	//어택 버튼 만들기
 	private void CreateAttackButtons()
 	{
 		GameObject attackButton = Instantiate(actionButton);
 		Text attackButtonText = attackButton.transform.Find("Text").gameObject.GetComponent<Text>();
 		attackButtonText.text = "Attack";
-		attackButton.GetComponent<Button>().onClick.AddListener(() => Input1());
+		attackButton.GetComponent<Button>().onClick.AddListener(() => Input1());	//버튼을 누르면 Input1 실행
 		attackButton.transform.SetParent(actionSpacer, false);
 		atkBtns.Add(attackButton);
 
 		GameObject magicAttackButton = Instantiate(actionButton);
 		Text magicAttackButtonText = magicAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
 		magicAttackButtonText.text = "Magic";
-		magicAttackButton.GetComponent<Button>().onClick.AddListener(() => Input3());
+		magicAttackButton.GetComponent<Button>().onClick.AddListener(() => Input3());   //버튼을 누르면 Input1 실행
 		magicAttackButton.transform.SetParent(actionSpacer, false);
 		atkBtns.Add(magicAttackButton);
 

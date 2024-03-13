@@ -58,6 +58,7 @@ public class HeroStateMaschine : MonoBehaviour
 
 	private void Update()
 	{
+		Debug.Log(this.name + " " + currentState);
 		switch (currentState)
 		{
 			case TurnState.Processing:
@@ -107,6 +108,8 @@ public class HeroStateMaschine : MonoBehaviour
 							}
 						}
 					}
+					//BSM.heroToManger.RemoveAt(0);
+
 					//색 변경(컷씬으로 대체)
 					Debug.Log(this.gameObject.name + " Dead");
 					//히어로 입력 리셋
@@ -125,11 +128,8 @@ public class HeroStateMaschine : MonoBehaviour
 	{
 		if (BSM.battleOrders[0].attackerName == this.name)
 		{
-			//Debug.Log("히어로 공격 실행 " + this.name);
+			Debug.Log("히어로 공격 실행 " + this.name);
 			currentState = TurnState.Addtolist;
-			//BattleOrder tmpbattleOrder = BSM.battleOrders[0];
-			//BSM.battleOrders.RemoveAt(0);
-			//BSM.battleOrders.Add(tmpbattleOrder);
 		}
 	}
 

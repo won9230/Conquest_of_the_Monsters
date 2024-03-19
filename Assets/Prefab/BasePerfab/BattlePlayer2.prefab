@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 8805109579024828068}
   m_Layer: 0
   m_Name: BattlePlayer2
-  m_TagString: Untagged
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,7 +251,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1957568897725699571}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.347, y: 0, z: -1.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -299,22 +299,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hero:
     theName: BattlePlayer2
-    baseHp: 20
-    curHp: 20
-    baseMp: 15
-    curMp: 15
-    baseATK: 0
-    curATK: 0
-    baseDEF: 0
-    curDEF: 0
+    baseHp: 100
+    curHp: 100
+    baseMp: 20
+    curMp: 20
+    baseATK: 9
+    curATK: 9
+    baseDEF: 5
+    curDEF: 5
+    attacks:
+    - {fileID: 5270375922750806575, guid: 04b07da06b7c66c4d9ffb7b90c526b9b, type: 3}
     stamina: 10
     intellect: 10
     dexterity: 10
     ahility: 10
+    magicAttacks: []
   currentState: 0
   hpBarSlider: {fileID: 0}
-  select: {fileID: 6181479598394951649}
+  select: {fileID: 8161575989755574280, guid: b1d843a5db2f2c04a9bb2e90676f3ae5, type: 3}
   enemyToAttack: {fileID: 0}
+  heroPanel: {fileID: 4485833391261851819, guid: 8f4021c325d5edd4498a135b7a51cd4f, type: 3}
 --- !u!1 &1975631241010603539
 GameObject:
   m_ObjectHideFlags: 0

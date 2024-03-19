@@ -592,11 +592,15 @@ MonoBehaviour:
     curATK: 2
     baseDEF: 2
     curDEF: 2
+    attacks:
+    - {fileID: 5270375922750806575, guid: 04b07da06b7c66c4d9ffb7b90c526b9b, type: 3}
     EnemyType: 0
     rarity: 0
+    ahility: 0
   BSM: {fileID: 0}
   currentState: 0
   heroToAttack: {fileID: 0}
+  select: {fileID: 0}
 --- !u!1 &6580912934386115145
 GameObject:
   m_ObjectHideFlags: 0

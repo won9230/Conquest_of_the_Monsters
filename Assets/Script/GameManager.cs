@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
 	private Vector3 lastHeroPosition;
 
+	//파티 인원 최대 4명
+	public GameObject[] heroParty = new GameObject[4];
 	public enum GameState
 	{
 		World_State,

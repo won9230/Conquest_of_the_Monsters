@@ -58,7 +58,7 @@ public class HeroStateMaschine : MonoBehaviour
 
 	private void Update()
 	{
-		Debug.Log(this.name + " " + currentState);
+		//Debug.Log(this.name + " " + currentState);
 		switch (currentState)
 		{
 			case TurnState.Processing:
@@ -128,7 +128,7 @@ public class HeroStateMaschine : MonoBehaviour
 	{
 		if (BSM.battleOrders[0].attackerName == this.name)
 		{
-			Debug.Log("히어로 공격 실행 " + this.name);
+			//Debug.Log("히어로 공격 실행 " + this.name);
 			currentState = TurnState.Addtolist;
 		}
 	}

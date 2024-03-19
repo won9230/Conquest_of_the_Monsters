@@ -106,7 +106,7 @@ public class EnemyStateMaschine : MonoBehaviour
 	//행동 가능 체크
 	private void UpgradeProgressBar()
 	{
-		if (BSM.battleOrders[0].attackerName == this.name)
+		if (BSM.battleOrders[0].attackerName == this.name && BSM.performList.Count == 0)
 		{
 			//Debug.Log("적공격 실행 " + this.name);
             foreach (var item in BSM.battleOrders)

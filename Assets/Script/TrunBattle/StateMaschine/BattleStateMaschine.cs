@@ -17,6 +17,7 @@ public class BattleStateMaschine : MonoBehaviour
 	public PerformAction battleState;
 
 	public List<HandleTrun> performList = new List<HandleTrun>();
+	public HandleTrun perform = null;
 	public List<BattleOrder> battleOrders = new List<BattleOrder>();
 	public List<GameObject> heroInBattle = new List<GameObject>();
 	public List<GameObject> enemyInBattle = new List<GameObject>();
@@ -177,7 +178,7 @@ public class BattleStateMaschine : MonoBehaviour
 		switch (heroInput)
 		{
 			case HeroGUI.Activate:
-				if(heroToManger.Count > 0 && battleOrders[0].heroToEnemy == HeroToEnemy.Hero)
+				if(heroToManger.Count > 0)
 				{
 					heroToManger[0].transform.Find("Selector").gameObject.SetActive(true);
 					heroChoise = new HandleTrun();
@@ -305,10 +306,10 @@ public class BattleStateMaschine : MonoBehaviour
 	//공격버튼 삭제
 	private void ClearAttackPanel()
 	{
-		UIPanel.SetActive(false);
 		enemySelectPanel.SetActive(false);
 		attackPanel.SetActive(false);
 		magicPanel.SetActive(false);
+		UIPanel.SetActive(false);
 
 		foreach (GameObject atkBtn in atkBtns)
 		{
@@ -331,7 +332,7 @@ public class BattleStateMaschine : MonoBehaviour
 		GameObject magicAttackButton = Instantiate(actionButton);
 		Text magicAttackButtonText = magicAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
 		magicAttackButtonText.text = "Magic";
-		magicAttackButton.GetComponent<Button>().onClick.AddListener(() => Input3());   //버튼을 누르면 Input1 실행
+		magicAttackButton.GetComponent<Button>().onClick.AddListener(() => Input3());   //버튼을 누르면 Input3 실행
 		magicAttackButton.transform.SetParent(actionSpacer, false);
 		atkBtns.Add(magicAttackButton);
 

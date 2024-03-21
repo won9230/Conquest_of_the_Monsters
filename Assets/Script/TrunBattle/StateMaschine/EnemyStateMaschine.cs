@@ -18,10 +18,7 @@ public class EnemyStateMaschine : MonoBehaviour
 	}
 
 	public TurnState currentState;
-
-	private float cur_cooldown = 0f;
-	private float max_cooldown = 3f;	//10f
-
+	
 	private Vector3 startPosition;
 
 	private bool actionStarted = false;
@@ -119,7 +116,7 @@ public class EnemyStateMaschine : MonoBehaviour
 	//행동 가능 체크
 	private void UpgradeProgressBar()
 	{
-		if (BSM.battleOrders[0].attackerName == this.name && BSM.performList.Count >= 0)
+		if (BSM.battleOrders[0].attackerName == this.name)
 		{
 			//Debug.Log("적공격 실행 " + this.name);
     //        foreach (var item in BSM.battleOrders)

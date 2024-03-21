@@ -50,10 +50,10 @@ public class GameManager : MonoBehaviour
 		}
 		else if(instance != this)
 		{
-			Destroy(gameObject);
+			Destroy(this.gameObject);
 			Debug.Log("GameManager가 중복되서 삭제되었습니다");
 		}
-		DontDestroyOnLoad(gameObject);
+		DontDestroyOnLoad(this.gameObject);
 		//Cursor.visible = false;
 		//Cursor.lockState = CursorLockMode.Locked;
 	}

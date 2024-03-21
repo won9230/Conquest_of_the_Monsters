@@ -16,8 +16,8 @@ public class BattleStateMaschine : MonoBehaviour
 	}
 	public PerformAction battleState;
 
-	public List<HandleTrun> performList = new List<HandleTrun>();
-	public HandleTrun perform = null;
+	//public List<HandleTrun> performList = new List<HandleTrun>();
+	public HandleTrun perform;
 	public List<BattleOrder> battleOrders = new List<BattleOrder>();
 	public List<GameObject> heroInBattle = new List<GameObject>();
 	public List<GameObject> enemyInBattle = new List<GameObject>();
@@ -79,6 +79,8 @@ public class BattleStateMaschine : MonoBehaviour
 		//heroInBattle.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
 		heroInput = HeroGUI.Activate;
 
+		perform = new HandleTrun();
+
 		//순서 정하기
 		HeroOrderAdd();
 		EnemyOrderAdd();
@@ -87,46 +89,48 @@ public class BattleStateMaschine : MonoBehaviour
 		attackPanel.SetActive(false);
 		enemySelectPanel.SetActive(false);
 		magicPanel.SetActive(false);
+		UIPanel.SetActive(false) ;
 
 		EnemyButtons();
 	}
 
 	private void Update()
 	{
-		//Debug.Log("GameState " + battleState);
+		Debug.Log("GameState " + battleState);
+		Debug.Log(perform.attacker);
 		switch (battleState)
 		{
 			case PerformAction.Wait:
-				if(performList.Count > 0)
+				if(perform.attacker != null)
 				{
 					battleState = PerformAction.TakeAction;
 				}
 				break;
 			case PerformAction.TakeAction:
-				GameObject performer = GameObject.Find(performList[0].attacker);
-				if(performList[0].Type == "Enemy")
+				GameObject performer = GameObject.Find(perform.attacker);
+				if(perform.Type == "Enemy")
 				{
 					EnemyStateMaschine ESM = performer.GetComponent<EnemyStateMaschine>();
 					for (int i = 0; i < heroInBattle.Count; i++)
 					{
-						if(performList[0].attackersTarget == heroInBattle[i])
+						if(perform.attackersTarget == heroInBattle[i])
 						{
-							ESM.heroToAttack = performList[0].attackersTarget;
+							ESM.heroToAttack = perform.attackersTarget;
 							ESM.currentState = EnemyStateMaschine.TurnState.Action;
 							break;
 						}
 						else
 						{
-							performList[0].attackersTarget = heroInBattle[Random.Range(0,heroInBattle.Count)];
-							ESM.heroToAttack = performList[0].attackersTarget;
+							perform.attackersTarget = heroInBattle[Random.Range(0,heroInBattle.Count)];
+							ESM.heroToAttack = perform.attackersTarget;
 							ESM.currentState = EnemyStateMaschine.TurnState.Action;
 						}
 					}
 				}
-				if(performList[0].Type == "Hero")
+				if(perform.Type == "Hero")
 				{
 					HeroStateMaschine HSM = performer.GetComponent<HeroStateMaschine>();
-					HSM.enemyToAttack = performList[0].attackersTarget;
+					HSM.enemyToAttack = perform.attackersTarget;
 					HSM.currentState = HeroStateMaschine.TurnState.Action;
 				}
 				battleState = PerformAction.PerformAction;
@@ -174,7 +178,7 @@ public class BattleStateMaschine : MonoBehaviour
 			default:
 				break;
 		}
-		Debug.Log(heroInput);
+		//Debug.Log(heroInput);
 		switch (heroInput)
 		{
 			case HeroGUI.Activate:
@@ -293,7 +297,7 @@ public class BattleStateMaschine : MonoBehaviour
 	private void HeroInputDone()
 	{
 		//Debug.Log("HeroInputDone 실행");
-		performList.Add(heroChoise);
+		perform = heroChoise;
 		ClearAttackPanel();
 
 		heroToManger[0].transform.Find("Selector").gameObject.SetActive(false);
@@ -309,7 +313,6 @@ public class BattleStateMaschine : MonoBehaviour
 		enemySelectPanel.SetActive(false);
 		attackPanel.SetActive(false);
 		magicPanel.SetActive(false);
-		UIPanel.SetActive(false);
 
 		foreach (GameObject atkBtn in atkBtns)
 		{
@@ -321,7 +324,6 @@ public class BattleStateMaschine : MonoBehaviour
 	//어택 버튼 만들기
 	private void CreateAttackButtons()
 	{
-		UIPanel.SetActive(true);
 		GameObject attackButton = Instantiate(actionButton);
 		Text attackButtonText = attackButton.transform.Find("Text").gameObject.GetComponent<Text>();
 		attackButtonText.text = "Attack";

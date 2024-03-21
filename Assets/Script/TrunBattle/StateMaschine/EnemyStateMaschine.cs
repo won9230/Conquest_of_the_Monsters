@@ -69,21 +69,21 @@ public class EnemyStateMaschine : MonoBehaviour
 					//selector 비활성화
 					select.SetActive(false);
 					//미리 들어가 있는 공격을 삭제
-					if(BSM.enemyInBattle.Count > 0)
-					{
-						for (int i = 0; i < BSM.performList.Count; i++)
-						{
-							if (BSM.performList[i].attackersGamgeObject == this.gameObject)
-							{
-								BSM.performList.Remove(BSM.performList[i]);
-								i--;
-							}
-							if (BSM.performList[i].attackersTarget == this.gameObject)
-							{
-								BSM.performList[i].attackersTarget = BSM.enemyInBattle[Random.Range(0, BSM.enemyInBattle.Count)];
-							}
-						}
-					}
+					//if(BSM.enemyInBattle.Count > 0)
+					//{
+					//	for (int i = 0; i < BSM.performList.Count; i++)
+					//	{
+					//		if (BSM.performList[i].attackersGamgeObject == this.gameObject)
+					//		{
+					//			BSM.performList.Remove(BSM.performList[i]);
+					//			i--;
+					//		}
+					//		if (BSM.performList[i].attackersTarget == this.gameObject)
+					//		{
+					//			BSM.performList[i].attackersTarget = BSM.enemyInBattle[Random.Range(0, BSM.enemyInBattle.Count)];
+					//		}
+					//	}
+					//}
 
 					if(BSM.battleOrders.Count > 0)
 					{
@@ -116,7 +116,7 @@ public class EnemyStateMaschine : MonoBehaviour
 	//행동 가능 체크
 	private void UpgradeProgressBar()
 	{
-		if (BSM.battleOrders[0].attackerName == this.name)
+		if (BSM.battleOrders[0].attackerName == this.name && BSM.perform.attacker == null)
 		{
 			//Debug.Log("적공격 실행 " + this.name);
     //        foreach (var item in BSM.battleOrders)
@@ -127,7 +127,6 @@ public class EnemyStateMaschine : MonoBehaviour
 			BattleOrder tmpbattleOrder = BSM.battleOrders[0];
 			BSM.battleOrders.RemoveAt(0);
 			BSM.battleOrders.Add(tmpbattleOrder);
-
 		}
 	}
 
@@ -144,7 +143,7 @@ public class EnemyStateMaschine : MonoBehaviour
 		myAttack.choosenAttack = enemy.attacks[num];
 		//Debug.Log(this.gameObject.name + " has choosen " + myAttack.choosenAttack.attackName + " and do " + myAttack.choosenAttack.attackDamage + " damage!");
 
-		BSM.performList.Add(myAttack);
+		BSM.perform = myAttack;
     }
 	
 	//공격 동작
@@ -174,13 +173,13 @@ public class EnemyStateMaschine : MonoBehaviour
 			yield return null;
 		}
 		//BSM에서 performer제거
-		BSM.performList.RemoveAt(0);
+		BSM.perform = new HandleTrun();
 		//BSM를 Wait으로 변경
 		BSM.battleState = BattleStateMaschine.PerformAction.Wait;
 
 		actionStarted = false;
 		//적 상태 초기화
-		cur_cooldown = 0f;
+		//cur_cooldown = 0f;
 		isEnemyAttack = false;
 		currentState = TurnState.Processing;
 	}
@@ -201,7 +200,7 @@ public class EnemyStateMaschine : MonoBehaviour
 	//데미지 입음
 	private void DoDamage()
 	{
-		float calc_damage = enemy.curATK + BSM.performList[0].choosenAttack.attackDamage;
+		float calc_damage = enemy.curATK + BSM.perform.choosenAttack.attackDamage;
 		heroToAttack.GetComponent<HeroStateMaschine>().TakeDamage(calc_damage);
 	}
 

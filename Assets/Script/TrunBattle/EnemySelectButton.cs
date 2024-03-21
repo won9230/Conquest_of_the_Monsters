@@ -11,7 +11,7 @@ public class EnemySelectButton : MonoBehaviour
 		BattleStateMaschine BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMaschine>();
 		BSM.Input2(enemyPrefab);
 		BattleOrder tmpbattleOrder = BSM.battleOrders[0];
-		BSM.UIPanel.SetActive(false);
+		//BSM.UIPanel.SetActive(false);
 		BSM.battleOrders.RemoveAt(0);
 		BSM.battleOrders.Add(tmpbattleOrder);
 	}

@@ -173,7 +173,7 @@ public class BattleStateMaschine : MonoBehaviour
 			default:
 				break;
 		}
-
+		Debug.Log(heroInput);
 		switch (heroInput)
 		{
 			case HeroGUI.Activate:
@@ -182,7 +182,7 @@ public class BattleStateMaschine : MonoBehaviour
 					heroToManger[0].transform.Find("Selector").gameObject.SetActive(true);
 					heroChoise = new HandleTrun();
 
-					UIPanel.SetActive(true);
+					//UIPanel.SetActive(true);
 					attackPanel.SetActive(true);
 					CreateAttackButtons();
 
@@ -305,6 +305,7 @@ public class BattleStateMaschine : MonoBehaviour
 	//공격버튼 삭제
 	private void ClearAttackPanel()
 	{
+		UIPanel.SetActive(false);
 		enemySelectPanel.SetActive(false);
 		attackPanel.SetActive(false);
 		magicPanel.SetActive(false);
@@ -319,6 +320,7 @@ public class BattleStateMaschine : MonoBehaviour
 	//어택 버튼 만들기
 	private void CreateAttackButtons()
 	{
+		UIPanel.SetActive(true);
 		GameObject attackButton = Instantiate(actionButton);
 		Text attackButtonText = attackButton.transform.Find("Text").gameObject.GetComponent<Text>();
 		attackButtonText.text = "Attack";

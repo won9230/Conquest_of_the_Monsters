@@ -18,12 +18,20 @@ public class EnemyAttackRange : MonoBehaviour
 			enemyEntity.player = other.gameObject;
 			enemyEntity.state = EnemyEntity.State.ATTACK;
 		}
+
 	}
 	private void OnTriggerExit(Collider other)
 	{
 		if (other.CompareTag(player))
 		{
+			enemyEntity.player = null;
 			enemyEntity.state = EnemyEntity.State.CHASE;
 		}
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.blue;
+		Gizmos.DrawWireSphere(transform.position, 1.5f);
 	}
 }

@@ -17,15 +17,21 @@ public class EnemyChaseRange : MonoBehaviour
 		if (other.CompareTag(player))
 		{
 			enemyEntity.player = other.gameObject;
-			enemyEntity.state = EnemyEntity.State.CHASE;
-			
+			//enemyEntity.state = EnemyEntity.State.CHASE;
 		}
 	}
 	private void OnTriggerExit(Collider other)
 	{
 		if (other.CompareTag(player))
 		{
-			enemyEntity.state = EnemyEntity.State.IDLE;
+			enemyEntity.player = null;
+			//enemyEntity.state = EnemyEntity.State.IDLE;
 		}
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(transform.position, 5f);
 	}
 }

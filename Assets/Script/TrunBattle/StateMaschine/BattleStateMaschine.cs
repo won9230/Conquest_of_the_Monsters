@@ -164,6 +164,7 @@ public class BattleStateMaschine : MonoBehaviour
 					heroInBattle[i].GetComponent<HeroStateMaschine>().currentState = HeroStateMaschine.TurnState.Waiting;
 				}
 
+
 				GameManager.instance.LoadSceneAfterBattle();
 				GameManager.instance.gamestate = GameManager.GameState.World_State;
 				GameManager.instance.enemyToBattle.Clear();
@@ -293,13 +294,14 @@ public class BattleStateMaschine : MonoBehaviour
 		enemySelectPanel.SetActive(false);
 		attackPanel.SetActive(false);
 		magicPanel.SetActive(false);
-		UIPanel.SetActive(false);
 
 		foreach (GameObject atkBtn in atkBtns)
 		{
 			Destroy(atkBtn);        //???
 		}
 		atkBtns.Clear();
+
+		UIPanel.SetActive(false);
 	}
 
 	//어택 버튼 만들기

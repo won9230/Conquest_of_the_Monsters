@@ -40,6 +40,7 @@ public class EnemyStateMaschine : MonoBehaviour
 
 	private void Update()
 	{
+		Debug.Log(this.name + " " + currentState);
 		switch (currentState)
 		{
 			case TurnState.Processing:
@@ -65,7 +66,10 @@ public class EnemyStateMaschine : MonoBehaviour
 					//enemy로 태그 변경
 					this.gameObject.tag = "DeadEnemy";
 					//영웅을 공격하지 않음
+					Debug.Log("1");
 					BSM.enemyInBattle.Remove(this.gameObject);
+					Debug.Log("2");
+
 					//selector 비활성화
 					select.SetActive(false);
 
@@ -78,8 +82,10 @@ public class EnemyStateMaschine : MonoBehaviour
 					alive = false;
 					//적 선택 버튼 초기화
 					BSM.EnemyButtons();
+
+
 					//생존 체크
-					BSM.battleState = BattleStateMaschine.PerformAction.checkAlive;
+					BSM.battleState = PerformAction.checkAlive;
 				}
 				break;
 			default:
@@ -155,8 +161,9 @@ public class EnemyStateMaschine : MonoBehaviour
 		actionStarted = false;
 		//적 상태 초기화
 		//cur_cooldown = 0f;
-		BSM.isEnemyAttack = false;
 		BSM.BattleNext();
+		BSM.isEnemyAttack = false;
+
 		currentState = TurnState.Processing;
 	}
 
@@ -203,6 +210,7 @@ public class EnemyStateMaschine : MonoBehaviour
 			if (BSM.perform.attackersTarget == this.gameObject)
 			{
 				BSM.perform.attackersTarget = BSM.enemyInBattle[Random.Range(0, BSM.enemyInBattle.Count)];
+
 			}
 		}
 

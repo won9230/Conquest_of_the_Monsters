@@ -44,12 +44,9 @@ public class HeroStateMaschine : MonoBehaviour
 	}
 	private void Start()
 	{
-		//spaer찾기
 		//패널 만들기
 		CreateHeroPanel();
-
-
-		//cur_cooldown = Random.Range(1, 2.5f);
+		
 		select.gameObject.SetActive(false);
 
 		currentState = TurnState.Processing;
@@ -65,7 +62,7 @@ public class HeroStateMaschine : MonoBehaviour
 				UpgradeProgressBar();
 				break;
 			case TurnState.Addtolist:
-
+				
 				currentState = TurnState.Waiting;
 				break;
 			case TurnState.Waiting:
@@ -93,11 +90,11 @@ public class HeroStateMaschine : MonoBehaviour
 					//ui 리셋
 					BSM.attackPanel.SetActive(false);
 					BSM.enemySelectPanel.SetActive(false);
-					//performlist에서 삭제
-					BSM.BattleNext();
+
 
 					//색 변경(컷씬으로 대체)
 					Debug.Log(this.gameObject.name + " Dead");
+
 					//히어로 입력 리셋
 					BSM.battleState = BattleStateMaschine.PerformAction.checkAlive;
 					alive = false;
@@ -114,7 +111,7 @@ public class HeroStateMaschine : MonoBehaviour
 	{
 		if (BSM.battleOrders[0].attackerName == this.name && !BSM.isHeroAttack)
 		{
-			//BSM.UIPanel.SetActive(true);
+			BSM.UIPanel.SetActive(true);
 			Debug.Log("히어로 공격 실행 " + this.name);
 			BSM.isHeroAttack = true;
 			currentState = TurnState.Addtolist;
@@ -155,6 +152,7 @@ public class HeroStateMaschine : MonoBehaviour
 		{
 			BSM.battleState = BattleStateMaschine.PerformAction.Wait;
 
+
 			//적 상태 초기화
 			//cur_cooldown = 0f;
 			currentState = TurnState.Processing;
@@ -163,9 +161,9 @@ public class HeroStateMaschine : MonoBehaviour
 		{
 			currentState = TurnState.Waiting;
 		}
-
-		BSM.UIPanel.SetActive(true);
+		BSM.BattleNext();   //battleorder다음으로
 		BSM.isHeroAttack = false;
+
 		//코루틴 종료
 		actionStarted = false;
 	}
@@ -183,7 +181,7 @@ public class HeroStateMaschine : MonoBehaviour
 		return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
 	}
 
-	//영웅 데미지
+	//영웅 데미지 입음
 	public void TakeDamage(float getDamageAmount)
 	{
 		hero.curHp -= getDamageAmount;

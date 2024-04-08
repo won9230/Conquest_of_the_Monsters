@@ -85,7 +85,8 @@ public class GameManager : MonoBehaviour
 	private void StartBattle()
 	{
 		//적의 수
-		enemyAmount = Random.Range(1, regions[0].maxAmountEnemys + 1);
+		//enemyAmount = Random.Range(1, regions[0].maxAmountEnemys + 1);
+		enemyAmount = Random.Range(4, 5);	//디거깅 용
 		//어떤 적을 내보낼지
 		for (int i = 0; i < enemyAmount; i++)
 		{

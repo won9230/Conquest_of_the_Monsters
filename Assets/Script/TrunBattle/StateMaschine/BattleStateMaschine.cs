@@ -36,7 +36,6 @@ public class BattleStateMaschine : MonoBehaviour
 	public List<GameObject> heroToManger = new List<GameObject>();
 	private HandleTrun heroChoise;
 
-	public GameObject enemyButton;
 	public Transform spacer;			
 
 	public GameObject attackPanel;		//attack 버튼
@@ -44,6 +43,7 @@ public class BattleStateMaschine : MonoBehaviour
 	public GameObject magicPanel;		//magic버튼
 	public GameObject UIPanel;			//UI 패널 전채(Canve)
 
+	public GameObject enemyButton;
 	public Transform actionSpacer;		//action 부모
 	public Transform magicSpacer;		//magic버튼 부모
 	public GameObject actionButton;
@@ -54,7 +54,9 @@ public class BattleStateMaschine : MonoBehaviour
 
 	public List<Transform> enemySpawnPoints = new List<Transform>();
 	public List<Transform> heroSpawnPoints = new List<Transform>();
-	
+
+	[HideInInspector] public bool isEnemyAttack = false;	//적 공격 판정 여부
+	[HideInInspector] public bool isHeroAttack = false;	//히어로 공격 판정 여부
 	private void Awake()
 	{
 		for (int i = 0; i < GameManager.instance.enemyAmount; i++)
@@ -77,7 +79,6 @@ public class BattleStateMaschine : MonoBehaviour
 		battleState = PerformAction.Wait;
 		//enemyInBattle.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 		//heroInBattle.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
-		heroInput = HeroGUI.Activate;
 
 		perform = new HandleTrun();
 
@@ -96,19 +97,20 @@ public class BattleStateMaschine : MonoBehaviour
 
 	private void Update()
 	{
-		Debug.Log("GameState " + battleState);
-		Debug.Log(perform.attacker);
+		//Debug.Log("GameState " + battleState);
 		switch (battleState)
 		{
 			case PerformAction.Wait:
+				//대기
 				if(perform.attacker != null)
 				{
 					battleState = PerformAction.TakeAction;
 				}
 				break;
 			case PerformAction.TakeAction:
+				//공격 진행
 				GameObject performer = GameObject.Find(perform.attacker);
-				if(perform.Type == "Enemy")
+				if (perform.Type == "Enemy")
 				{
 					EnemyStateMaschine ESM = performer.GetComponent<EnemyStateMaschine>();
 					for (int i = 0; i < heroInBattle.Count; i++)
@@ -132,6 +134,7 @@ public class BattleStateMaschine : MonoBehaviour
 					HeroStateMaschine HSM = performer.GetComponent<HeroStateMaschine>();
 					HSM.enemyToAttack = perform.attackersTarget;
 					HSM.currentState = HeroStateMaschine.TurnState.Action;
+					heroInput = HeroGUI.Activate;
 				}
 				battleState = PerformAction.PerformAction;
 				break;
@@ -142,7 +145,6 @@ public class BattleStateMaschine : MonoBehaviour
 				if(heroInBattle.Count < 1)
 				{
 					battleState = PerformAction.Lose;
-					//배틀 짐
 					Debug.Log("배틀 패배");
 					for (int i = 0; i < heroInBattle.Count; i++)
 					{
@@ -152,13 +154,7 @@ public class BattleStateMaschine : MonoBehaviour
 				else if(enemyInBattle.Count < 1)
 				{
 					battleState = PerformAction.Win;
-					//배틀 이김
 					Debug.Log("배틀 승리");
-				}
-				else
-				{
-					ClearAttackPanel();
-					heroInput = HeroGUI.Activate;
 				}
 				break;
 			case PerformAction.Win:
@@ -178,7 +174,7 @@ public class BattleStateMaschine : MonoBehaviour
 			default:
 				break;
 		}
-		//Debug.Log(heroInput);
+		//Debug.Log("heroInput : " + heroInput);
 		switch (heroInput)
 		{
 			case HeroGUI.Activate:
@@ -187,7 +183,6 @@ public class BattleStateMaschine : MonoBehaviour
 					heroToManger[0].transform.Find("Selector").gameObject.SetActive(true);
 					heroChoise = new HandleTrun();
 
-					//UIPanel.SetActive(true);
 					attackPanel.SetActive(true);
 					CreateAttackButtons();
 
@@ -202,7 +197,6 @@ public class BattleStateMaschine : MonoBehaviour
 			case HeroGUI.Input2:
 				break;
 			case HeroGUI.Done:
-				
 				HeroInputDone();
 				break;
 		}
@@ -245,10 +239,12 @@ public class BattleStateMaschine : MonoBehaviour
 		});
 	}
 
-	//public void CollectActions(HandleTrun input)
-	//{
-	//	performList.Add(input);
-	//}
+	public void BattleNext()
+	{
+		BattleOrder tmpbattleOrder = battleOrders[0];
+		battleOrders.RemoveAt(0);
+		battleOrders.Add(tmpbattleOrder);
+	}
 
 	//UI에 Enemy버튼과 Text 띄우기
 	public void EnemyButtons()
@@ -277,26 +273,11 @@ public class BattleStateMaschine : MonoBehaviour
 		}
 	}
 
-	public void Input1()	//attack 버튼
-	{
-		heroChoise.attacker = heroToManger[0].name;
-		heroChoise.attackersGamgeObject = heroToManger[0];
-		heroChoise.Type = "Hero";
-		//heroChoise.ahility = heroToManger[0].GetComponent<HeroStateMaschine>().hero.ahility;
-		heroChoise.choosenAttack = heroToManger[0].GetComponent<HeroStateMaschine>().hero.attacks[0];
-		attackPanel.SetActive(false);
-		enemySelectPanel.SetActive(true);
-	}
 
-	public void Input2(GameObject choosenEnemy)	//적 선택
-	{
-		heroChoise.attackersTarget = choosenEnemy;
-		heroInput = HeroGUI.Done;
-	}
 
 	private void HeroInputDone()
 	{
-		//Debug.Log("HeroInputDone 실행");
+		heroInput = HeroGUI.Waiting;
 		perform = heroChoise;
 		ClearAttackPanel();
 
@@ -304,7 +285,6 @@ public class BattleStateMaschine : MonoBehaviour
 		GameObject tmpHero = heroToManger[0];
 		heroToManger.RemoveAt(0);
 		heroToManger.Add(tmpHero);
-		heroInput = HeroGUI.Activate;
 	}
 	
 	//공격버튼 삭제
@@ -313,6 +293,7 @@ public class BattleStateMaschine : MonoBehaviour
 		enemySelectPanel.SetActive(false);
 		attackPanel.SetActive(false);
 		magicPanel.SetActive(false);
+		UIPanel.SetActive(false);
 
 		foreach (GameObject atkBtn in atkBtns)
 		{
@@ -324,6 +305,7 @@ public class BattleStateMaschine : MonoBehaviour
 	//어택 버튼 만들기
 	private void CreateAttackButtons()
 	{
+		UIPanel.SetActive(true);
 		GameObject attackButton = Instantiate(actionButton);
 		Text attackButtonText = attackButton.transform.Find("Text").gameObject.GetComponent<Text>();
 		attackButtonText.text = "Attack";
@@ -357,6 +339,30 @@ public class BattleStateMaschine : MonoBehaviour
 			magicAttackButton.GetComponent<Button>().interactable = false;
 		}
 	}
+
+	public void Input1()    //attack 버튼
+	{
+		heroChoise.attacker = heroToManger[0].name;
+		heroChoise.attackersGamgeObject = heroToManger[0];
+		heroChoise.Type = "Hero";
+		//heroChoise.ahility = heroToManger[0].GetComponent<HeroStateMaschine>().hero.ahility;
+		heroChoise.choosenAttack = heroToManger[0].GetComponent<HeroStateMaschine>().hero.attacks[0];
+		attackPanel.SetActive(false);
+		enemySelectPanel.SetActive(true);
+	}
+
+	public void Input2(GameObject choosenEnemy) //적 선택
+	{
+		heroChoise.attackersTarget = choosenEnemy;
+		heroInput = HeroGUI.Done;
+	}
+
+	public void Input3()//마법공격으로 변경
+	{
+		attackPanel.SetActive(false);
+		magicPanel.SetActive(true);
+	}
+
 	public void Input4(BaseAttack chooosenMagic)//마법 공격
 	{
 		heroChoise.attacker = heroToManger[0].name;
@@ -368,9 +374,5 @@ public class BattleStateMaschine : MonoBehaviour
 		enemySelectPanel.SetActive(true);
 	}
 
-	public void Input3()//마법공격으로 변경
-	{
-		attackPanel.SetActive(false);
-		magicPanel.SetActive(true);
-	}
+
 }

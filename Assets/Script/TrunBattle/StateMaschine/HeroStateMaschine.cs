@@ -94,21 +94,7 @@ public class HeroStateMaschine : MonoBehaviour
 					BSM.attackPanel.SetActive(false);
 					BSM.enemySelectPanel.SetActive(false);
 					//performlist에서 삭제
-					//if(BSM.heroInBattle.Count > 0)
-					//{
-					//	for (int i = 0; i < BSM.performList.Count; i++)
-					//	{
-					//		if(BSM.performList[i].attackersGamgeObject == this.gameObject)
-					//		{
-					//			BSM.performList.Remove(BSM.performList[i]);
-					//		}
-					//		if(BSM.performList[i].attackersTarget == this.gameObject)
-					//		{
-					//			BSM.performList[i].attackersTarget = BSM.heroInBattle[Random.Range(0, BSM.heroInBattle.Count)];
-					//		}
-					//	}
-					//}
-					//BSM.heroToManger.RemoveAt(0);
+					BSM.BattleNext();
 
 					//색 변경(컷씬으로 대체)
 					Debug.Log(this.gameObject.name + " Dead");
@@ -126,10 +112,11 @@ public class HeroStateMaschine : MonoBehaviour
 	//행동 게이지 쿨타임
 	private void UpgradeProgressBar()
 	{
-		if (BSM.battleOrders[0].attackerName == this.name && BSM.perform.attacker == null)
+		if (BSM.battleOrders[0].attackerName == this.name && !BSM.isHeroAttack)
 		{
-			BSM.UIPanel.SetActive(true);
-			//Debug.Log("히어로 공격 실행 " + this.name);
+			//BSM.UIPanel.SetActive(true);
+			Debug.Log("히어로 공격 실행 " + this.name);
+			BSM.isHeroAttack = true;
 			currentState = TurnState.Addtolist;
 		}
 	}
@@ -137,6 +124,7 @@ public class HeroStateMaschine : MonoBehaviour
 	//적 공격
 	private IEnumerator TimeForAction()
 	{
+		BSM.UIPanel.SetActive(false);
 		if (actionStarted)
 		{
 			yield break;
@@ -176,7 +164,8 @@ public class HeroStateMaschine : MonoBehaviour
 			currentState = TurnState.Waiting;
 		}
 
-
+		BSM.UIPanel.SetActive(true);
+		BSM.isHeroAttack = false;
 		//코루틴 종료
 		actionStarted = false;
 	}

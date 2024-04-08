@@ -25,7 +25,7 @@ public class EnemyStateMaschine : MonoBehaviour
 	public GameObject heroToAttack;
 	private float animSpeed = 10f;
 	public GameObject select;
-	[HideInInspector] public bool isEnemyAttack = false; //enemy가 공격하고 있는지 여부
+
 
 	//생존여부
 	private bool alive = true;
@@ -68,34 +68,10 @@ public class EnemyStateMaschine : MonoBehaviour
 					BSM.enemyInBattle.Remove(this.gameObject);
 					//selector 비활성화
 					select.SetActive(false);
-					//미리 들어가 있는 공격을 삭제
-					//if(BSM.enemyInBattle.Count > 0)
-					//{
-					//	for (int i = 0; i < BSM.performList.Count; i++)
-					//	{
-					//		if (BSM.performList[i].attackersGamgeObject == this.gameObject)
-					//		{
-					//			BSM.performList.Remove(BSM.performList[i]);
-					//			i--;
-					//		}
-					//		if (BSM.performList[i].attackersTarget == this.gameObject)
-					//		{
-					//			BSM.performList[i].attackersTarget = BSM.enemyInBattle[Random.Range(0, BSM.enemyInBattle.Count)];
-					//		}
-					//	}
-					//}
 
-					if(BSM.battleOrders.Count > 0)
-					{
-						for(int i = 0;i < BSM.battleOrders.Count; i++)
-						{
-							if (BSM.battleOrders[i].attackerName == this.gameObject.name)
-							{
-								BSM.battleOrders.Remove(BSM.battleOrders[i]);
-								i--;
-							}
-						}
-					}
+					RemoveAttackersTarget();
+					RemoveBattleOrder();
+
 					//애니메이션 재생
 					Debug.Log(this.gameObject.name + " Dead!");
 
@@ -116,17 +92,16 @@ public class EnemyStateMaschine : MonoBehaviour
 	//행동 가능 체크
 	private void UpgradeProgressBar()
 	{
-		if (BSM.battleOrders[0].attackerName == this.name && BSM.perform.attacker == null)
+		if (BSM.battleOrders[0].attackerName == this.name && !BSM.isEnemyAttack)
 		{
 			//Debug.Log("적공격 실행 " + this.name);
-    //        foreach (var item in BSM.battleOrders)
-    //        {
-				//Debug.Log("적공격 실행 " + item.attackerName);
-    //        }
+			//        foreach (var item in BSM.battleOrders)
+			//        {
+			//Debug.Log("적공격 실행 " + item.attackerName);
+			//        }
+			BSM.isEnemyAttack = true;
             currentState = TurnState.ChooseAction;
-			BattleOrder tmpbattleOrder = BSM.battleOrders[0];
-			BSM.battleOrders.RemoveAt(0);
-			BSM.battleOrders.Add(tmpbattleOrder);
+
 		}
 	}
 
@@ -149,6 +124,7 @@ public class EnemyStateMaschine : MonoBehaviour
 	//공격 동작
 	private IEnumerator TimeForAction()
 	{
+		BSM.UIPanel.SetActive(false);
 		if (actionStarted)
 		{
 			yield break;
@@ -175,12 +151,12 @@ public class EnemyStateMaschine : MonoBehaviour
 		//BSM에서 performer제거
 		BSM.perform = new HandleTrun();
 		//BSM를 Wait으로 변경
-		BSM.battleState = BattleStateMaschine.PerformAction.Wait;
-
+		BSM.battleState = PerformAction.Wait;
 		actionStarted = false;
 		//적 상태 초기화
 		//cur_cooldown = 0f;
-		isEnemyAttack = false;
+		BSM.isEnemyAttack = false;
+		BSM.BattleNext();
 		currentState = TurnState.Processing;
 	}
 
@@ -212,6 +188,38 @@ public class EnemyStateMaschine : MonoBehaviour
 		{
 			enemy.curHp = 0;
 			currentState = TurnState.Dead;
+		}
+	}
+
+	//미리 들어가 있는 공격을 삭제
+	private void RemoveAttackersTarget()
+	{
+		if (BSM.enemyInBattle.Count > 0)
+		{
+			if (BSM.perform.attackersGamgeObject == this.gameObject)
+			{
+				BSM.perform = null;
+			}
+			if (BSM.perform.attackersTarget == this.gameObject)
+			{
+				BSM.perform.attackersTarget = BSM.enemyInBattle[Random.Range(0, BSM.enemyInBattle.Count)];
+			}
+		}
+
+	}
+
+	private void RemoveBattleOrder()
+	{
+		if (BSM.battleOrders.Count > 0)
+		{
+			for (int i = 0; i < BSM.battleOrders.Count; i++)
+			{
+				if (BSM.battleOrders[i].attackerName == this.gameObject.name)
+				{
+					BSM.battleOrders.Remove(BSM.battleOrders[i]);
+					i--;
+				}
+			}
 		}
 	}
 }

@@ -19,7 +19,7 @@ public class Mushroom : EnemyEntity
 		int moveTime = Random.Range(25, 35);
 		while (true)
 		{
-			Debug.Log(state);
+			//Debug.Log(state);
 			switch (state)
 			{
 				case State.IDLE:
@@ -61,7 +61,6 @@ public class Mushroom : EnemyEntity
 					{
 						if (player != null)
 						{
-							Debug.Log("player");
 							break;
 						}
 						yield return null;

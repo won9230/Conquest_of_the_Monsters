@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 6738545225765632932}
   - component: {fileID: 908587668402407936}
   - component: {fileID: 6623964423423748942}
+  - component: {fileID: 1291342839863868579}
   m_Layer: 0
   m_Name: BattleCactus
   m_TagString: Enemy
@@ -77,7 +78,7 @@ Animator:
   m_GameObject: {fileID: 430005656523396108}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7d44b7ac60d92844caab9b6377f0d373, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4198fa9b9a5842c0a5e4559b286248eb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 98ee4505b9f44b04ca8901aa5ced695d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -117,9 +118,23 @@ MonoBehaviour:
     rarity: 0
     ahility: 5
   BSM: {fileID: 0}
+  anim: {fileID: 0}
   currentState: 0
   heroToAttack: {fileID: 0}
   select: {fileID: 8038928883716502709}
+--- !u!114 &1291342839863868579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430005656523396108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7273a0214e27ebb499c55cc5ecd55746, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
 --- !u!1 &778226890219500104
 GameObject:
   m_ObjectHideFlags: 0

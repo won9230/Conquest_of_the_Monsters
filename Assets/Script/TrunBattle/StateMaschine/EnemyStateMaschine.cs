@@ -8,6 +8,7 @@ public class EnemyStateMaschine : MonoBehaviour
 {
 	public BaseEnemy enemy;
 	public BattleStateMaschine BSM;
+	public AnimatorManager anim;
 	public enum TurnState
 	{
 		Processing,
@@ -26,7 +27,6 @@ public class EnemyStateMaschine : MonoBehaviour
 	private float animSpeed = 10f;
 	public GameObject select;
 
-
 	//생존여부
 	private bool alive = true;
 
@@ -35,12 +35,17 @@ public class EnemyStateMaschine : MonoBehaviour
 		currentState = TurnState.Processing;
 		select.SetActive(false);
 		BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMaschine>();
-		startPosition = transform.position;
+		anim = GetComponent<AnimatorManager>();
+		startPosition = this.transform.position;
+		if (BSM == null)
+			Debug.LogError("BSM이 없습니다.");
+		if (anim == null)
+			Debug.LogError("AnimatorManager가 없습니다");
 	}
 
 	private void Update()
 	{
-		Debug.Log(this.name + " " + currentState);
+		//Debug.Log(this.name + " " + currentState);
 		switch (currentState)
 		{
 			case TurnState.Processing:
@@ -107,7 +112,7 @@ public class EnemyStateMaschine : MonoBehaviour
 			//        }
 			BSM.isEnemyAttack = true;
             currentState = TurnState.ChooseAction;
-
+			StartCoroutine(WaitTime(0.1f));
 		}
 	}
 
@@ -138,22 +143,27 @@ public class EnemyStateMaschine : MonoBehaviour
 		actionStarted = true;
 		//영웅 근처에서 공격 애니메이션
 		Vector3 heroPosition = new Vector3(heroToAttack.transform.position.x, heroToAttack.transform.position.y,heroToAttack.transform.position.z + 1.5f);
-
+		//이동 애니메이션
+		anim.RunAnim(true);
 		while (MoveTowardsEnemy(heroPosition))
 		{
 			yield return null;
 		}
-
+		//공격 애니메이션
+		anim.AttackAnim(true);
 		//대기
-		yield return new WaitForSeconds(0.5f);
-		//대미지
+		//yield return new WaitForSeconds(0.005f);
+		yield return new WaitForSeconds(anim.GetAnimTime());
+
 		DoDamage();
 		//원래위치로 복귀
-		Vector3 firstPosition = startPosition;
-		while (MoveTowardsStart(firstPosition))
+		//대미지 
+		anim.AttackAnim(false);
+		while (MoveTowardsStart(startPosition))
 		{
 			yield return null;
 		}
+		anim.RunAnim(false);
 		//BSM에서 performer제거
 		BSM.perform = new HandleTrun();
 		//BSM를 Wait으로 변경
@@ -193,8 +203,14 @@ public class EnemyStateMaschine : MonoBehaviour
 		enemy.curHp -= getDamageAmount;
 		if(enemy.curHp <= 0)
 		{
+			anim.DieAnim(true);
 			enemy.curHp = 0;
 			currentState = TurnState.Dead;
+		}
+		else
+		{
+			Debug.Log("적 데미지");
+			anim.TakeDamageAnim();
 		}
 	}
 
@@ -229,5 +245,10 @@ public class EnemyStateMaschine : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	private IEnumerator WaitTime(float _time)
+	{
+		yield return new WaitForSeconds(_time);
 	}
 }

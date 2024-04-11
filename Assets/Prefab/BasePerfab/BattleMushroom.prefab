@@ -525,6 +525,7 @@ GameObject:
   - component: {fileID: 2636947689929768528}
   - component: {fileID: 362238113240388830}
   - component: {fileID: 7619187998831724036}
+  - component: {fileID: -1932690893273991145}
   m_Layer: 0
   m_Name: BattleMushroom
   m_TagString: Enemy
@@ -601,6 +602,19 @@ MonoBehaviour:
   currentState: 0
   heroToAttack: {fileID: 0}
   select: {fileID: 0}
+--- !u!114 &-1932690893273991145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6163084455247491187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7273a0214e27ebb499c55cc5ecd55746, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
 --- !u!1 &6580912934386115145
 GameObject:
   m_ObjectHideFlags: 0

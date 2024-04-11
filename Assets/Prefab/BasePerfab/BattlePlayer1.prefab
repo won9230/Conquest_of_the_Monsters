@@ -1253,6 +1253,7 @@ GameObject:
   - component: {fileID: 8436343380123691713}
   - component: {fileID: 6270466694809738392}
   - component: {fileID: 3324523972366726192}
+  - component: {fileID: 3539867557409188892}
   m_Layer: 0
   m_Name: BattlePlayer1
   m_TagString: Hero
@@ -1294,7 +1295,7 @@ Animator:
   m_GameObject: {fileID: 5682353558090165601}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b962d585c627b6a4aa97de97c01c3f3f, type: 3}
-  m_Controller: {fileID: 9100000, guid: 609bf519f3e422d41adfcf3989ad290e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 71d8c9fa4e1dd464e962de79c4354f0f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1317,6 +1318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa583663be69e16408db50585361a33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   hero:
     theName: BattlePlayer1
     baseHp: 200
@@ -1339,6 +1341,19 @@ MonoBehaviour:
   select: {fileID: 7848496180116367442}
   enemyToAttack: {fileID: 0}
   heroPanel: {fileID: 4485833391261851819, guid: 8f4021c325d5edd4498a135b7a51cd4f, type: 3}
+--- !u!114 &3539867557409188892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5682353558090165601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7273a0214e27ebb499c55cc5ecd55746, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
 --- !u!1 &6085924512544598250
 GameObject:
   m_ObjectHideFlags: 0

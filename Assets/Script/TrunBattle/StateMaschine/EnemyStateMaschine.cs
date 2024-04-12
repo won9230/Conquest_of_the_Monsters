@@ -7,8 +7,11 @@ using static BattleStateMaschine;
 public class EnemyStateMaschine : MonoBehaviour
 {
 	public BaseEnemy enemy;
-	public BattleStateMaschine BSM;
-	public AnimatorManager anim;
+	[HideInInspector] BattleStateMaschine BSM;
+	[HideInInspector] public AnimatorManager anim;
+	//hp바
+	public Slider enemyHpBarSlider;
+
 	public enum TurnState
 	{
 		Processing,
@@ -23,24 +26,37 @@ public class EnemyStateMaschine : MonoBehaviour
 	private Vector3 startPosition;
 
 	private bool actionStarted = false;
-	public GameObject heroToAttack;
 	private float animSpeed = 10f;
+	public GameObject heroToAttack;
 	public GameObject select;
+	public GameObject hpBar;
 
 	//생존여부
 	private bool alive = true;
+
+	private void Awake()
+	{
+		BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMaschine>();
+		anim = GetComponent<AnimatorManager>();
+		GameObject newhpBar = Instantiate(hpBar,transform.position,transform.rotation);
+		Transform enemyHpBar = GameObject.Find("Canvas").transform.Find("EnemyHpBars");
+		enemyHpBar.parent = newhpBar.transform;
+		enemyHpBarSlider = newhpBar.GetComponent<Slider>();
+	}
 
 	private void Start()
 	{
 		currentState = TurnState.Processing;
 		select.SetActive(false);
-		BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMaschine>();
-		anim = GetComponent<AnimatorManager>();
+
 		startPosition = this.transform.position;
 		if (BSM == null)
 			Debug.LogError("BSM이 없습니다.");
 		if (anim == null)
 			Debug.LogError("AnimatorManager가 없습니다");
+		if(enemyHpBarSlider == null)
+			Debug.LogError("enemyHpBarSlider 없습니다");
+
 	}
 
 	private void Update()
@@ -195,6 +211,7 @@ public class EnemyStateMaschine : MonoBehaviour
 	{
 		float calc_damage = enemy.curATK + BSM.perform.choosenAttack.attackDamage;
 		heroToAttack.GetComponent<HeroStateMaschine>().TakeDamage(calc_damage);
+		
 	}
 
 	//데미지 입힘
@@ -203,15 +220,18 @@ public class EnemyStateMaschine : MonoBehaviour
 		enemy.curHp -= getDamageAmount;
 		if(enemy.curHp <= 0)
 		{
+			enemyHpBarSlider.value = enemy.curHp;
 			anim.DieAnim(true);
 			enemy.curHp = 0;
 			currentState = TurnState.Dead;
 		}
 		else
 		{
-			Debug.Log("적 데미지");
+			enemyHpBarSlider.value = enemy.curHp;
+			//Debug.Log("적 데미지");
 			anim.TakeDamageAnim();
 		}
+
 	}
 
 	//미리 들어가 있는 공격을 삭제

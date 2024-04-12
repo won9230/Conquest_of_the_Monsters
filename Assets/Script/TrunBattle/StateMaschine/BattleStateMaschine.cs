@@ -41,7 +41,9 @@ public class BattleStateMaschine : MonoBehaviour
 	public GameObject attackPanel;		//attack 버튼
 	public GameObject enemySelectPanel;	//적 선택 버튼
 	public GameObject magicPanel;		//magic버튼
-	public GameObject UIPanel;			//UI 패널 전채(Canve)
+	public GameObject UIPanel;          //UI 패널 전채(Canve)
+	public GameObject hpBarPrefab;      //적 머리 위 hp
+	public Vector3 hpBarOffset = new Vector3(-0.5f, 2.4f, 0);	//적 hp offset
 
 	public GameObject enemyButton;
 	public Transform actionSpacer;		//action 부모
@@ -62,8 +64,12 @@ public class BattleStateMaschine : MonoBehaviour
 		for (int i = 0; i < GameManager.instance.enemyAmount; i++)
 		{
 			GameObject newEnemy = Instantiate(GameManager.instance.enemyToBattle[i], enemySpawnPoints[i].position,Quaternion.Euler(new Vector3(0,180,0)));
+			GameObject newEnemyHpbar = Instantiate(hpBarPrefab, newEnemy.transform.position, newEnemy.transform.rotation);
+			newEnemyHpbar.transform.parent = newEnemy.transform;
+
 			newEnemy.name = newEnemy.GetComponent<EnemyStateMaschine>().enemy.theName + "_" + (i+1);
 			newEnemy.GetComponent<EnemyStateMaschine>().enemy.theName = newEnemy.name;
+			
 			enemyInBattle.Add(newEnemy);
 		}
 		for (int i = 0;i < GameManager.instance.heroParty.Length; i++)
@@ -297,7 +303,7 @@ public class BattleStateMaschine : MonoBehaviour
 
 		foreach (GameObject atkBtn in atkBtns)
 		{
-			Destroy(atkBtn);        //???
+			Destroy(atkBtn);
 		}
 		atkBtns.Clear();
 

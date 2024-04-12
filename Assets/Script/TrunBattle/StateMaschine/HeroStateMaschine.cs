@@ -43,10 +43,13 @@ public class HeroStateMaschine : MonoBehaviour
 		BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMaschine>();
 		BSM.heroToManger.Add(this.gameObject);
 		heroPanelSpacer = GameObject.Find("Canvas").transform.Find("UIPanel").transform.Find("HeroPanel").transform.Find("HeroPanelSpacer");
+		anim = GetComponent<AnimatorManager>();
 		if (BSM == null)
 			Debug.LogError("BattleManager가 없습니다");
 		if (BSM == null)
 			Debug.LogError("heroPanelSpacer가 없습니다");
+		if (anim == null)
+			Debug.LogError("AnimatorManager가 없습니다");
 	}
 	private void Start()
 	{
@@ -54,10 +57,6 @@ public class HeroStateMaschine : MonoBehaviour
 		CreateHeroPanel();
 		
 		select.gameObject.SetActive(false);
-		anim = GetComponent<AnimatorManager>();
-		if (anim == null)
-			Debug.LogError("AnimatorManager가 없습니다");
-
 		currentState = TurnState.Processing;
 		startPosition = this.transform.position;
 	}

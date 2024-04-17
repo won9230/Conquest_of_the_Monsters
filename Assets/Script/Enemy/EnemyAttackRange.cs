@@ -16,7 +16,7 @@ public class EnemyAttackRange : MonoBehaviour
 		if (other.CompareTag(player))
 		{
 			enemyEntity.player = other.gameObject;
-			enemyEntity.state = EnemyEntity.State.ATTACK;
+			enemyEntity.state = EnemyEntity.State.Attack;
 		}
 
 	}
@@ -25,7 +25,7 @@ public class EnemyAttackRange : MonoBehaviour
 		if (other.CompareTag(player))
 		{
 			enemyEntity.player = null;
-			enemyEntity.state = EnemyEntity.State.CHASE;
+			enemyEntity.state = EnemyEntity.State.Chase;
 		}
 	}
 

@@ -13,13 +13,13 @@ public class EnemyEntity : MonoBehaviour
 	public float playerDist;
 	public enum State
 	{
-		IDLE,       //평소
-		MOVE,       //움직임
-		CHASE,      //추격
-		ATTACK      //공격
+		Idle,       //평소
+		Move,       //움직임
+		Chase,      //추격
+		Attack		//공격
 	}
 
-	[HideInInspector] public State state = State.IDLE;
+	[HideInInspector] public State state = State.Idle;
 
 	public new string name;
 	public int hp;

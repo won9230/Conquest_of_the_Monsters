@@ -34,6 +34,6 @@ public class AnimatorManager : MonoBehaviour
 	//현제 진행중인 애니메이션 시간을 반환
 	public float GetAnimTime()
 	{
-		return anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
+		return anim.GetCurrentAnimatorStateInfo(0).length;
 	}
 }

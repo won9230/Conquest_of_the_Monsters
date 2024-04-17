@@ -10,6 +10,7 @@ public class MushroomAttack : MonoBehaviour
 		if(other.tag == "Player")
 		{
 			//BattleCutControl.instance.BattleCutPlay();
+			GameManager.instance.curRegions = 0;
 			GameManager.instance.gamestate = GameManager.GameState.Battle_State;
 			//Debug.Log("공격을 당했다! " + this.gameObject.name);
 		}

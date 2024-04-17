@@ -126,6 +126,7 @@ public class HeroStateMaschine : MonoBehaviour
 	private IEnumerator TimeForAction()
 	{
 		BSM.UIPanel.SetActive(false);
+		enemyToAttack.GetComponent<EnemyStateMaschine>().enemyHpBar.SetActive(true);
 		if (actionStarted)
 		{
 			yield break;
@@ -140,11 +141,12 @@ public class HeroStateMaschine : MonoBehaviour
 		{
 			yield return null;
 		}
-		yield return new WaitForSeconds(0.1f);
 		//공격 애니메이션
 		anim.AttackAnim(true);
-		yield return new WaitForSeconds(0.005f);
-		yield return new WaitForSeconds(anim.GetAnimTime());
+		yield return new WaitForSeconds(0.01f);
+		yield return new WaitForSeconds(anim.GetAnimTime() + 0.1f);
+
+
 		//데미지
 		DoDamage();
 		//원래위치로 복귀
@@ -169,7 +171,7 @@ public class HeroStateMaschine : MonoBehaviour
 			//전투 종료
 			currentState = TurnState.Waiting;
 		}
-
+		enemyToAttack.GetComponent<EnemyStateMaschine>().enemyHpBar.SetActive(false);
 		//공격 끝
 		BSM.isHeroAttack = false;
 		//코루틴 종료
@@ -203,7 +205,6 @@ public class HeroStateMaschine : MonoBehaviour
 		}
 		else
 		{
-
 			anim.TakeDamageAnim();
 		}
 		UpdateHeroPanel();

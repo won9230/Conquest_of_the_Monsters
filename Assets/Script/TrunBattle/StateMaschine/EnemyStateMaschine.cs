@@ -11,6 +11,8 @@ public class EnemyStateMaschine : MonoBehaviour
 	[HideInInspector] public AnimatorManager anim;
 	//hp바
 	public Slider enemyHpBarSlider;
+	public GameObject enemyHpBar;
+	private Transform sliderFill_Area;  //hp바 Fill_Area
 
 	public enum TurnState
 	{
@@ -29,7 +31,6 @@ public class EnemyStateMaschine : MonoBehaviour
 	private float animSpeed = 10f;
 	public GameObject heroToAttack;
 	public GameObject select;
-	public GameObject hpBar;
 
 	//생존여부
 	private bool alive = true;
@@ -38,25 +39,38 @@ public class EnemyStateMaschine : MonoBehaviour
 	{
 		BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMaschine>();
 		anim = GetComponent<AnimatorManager>();
-		GameObject newhpBar = Instantiate(hpBar,transform.position,transform.rotation);
-		Transform enemyHpBar = GameObject.Find("Canvas").transform.Find("EnemyHpBars");
-		enemyHpBar.parent = newhpBar.transform;
-		enemyHpBarSlider = newhpBar.GetComponent<Slider>();
+		enemyHpBar = transform.Find("Hp Bar Canvas").transform.Find("Slider").gameObject;
+		enemyHpBarSlider = enemyHpBar.GetComponent<Slider>();
+		sliderFill_Area = enemyHpBar.transform.Find("Fill Area");
+		
 	}
 
 	private void Start()
 	{
+		Error_checking();
 		currentState = TurnState.Processing;
 		select.SetActive(false);
+		enemyHpBar.SetActive(false);
 
 		startPosition = this.transform.position;
+
+		enemyHpBarSlider.maxValue = enemy.baseHp;
+		enemyHpBarSlider.minValue = 0;
+		enemyHpBarSlider.value = enemy.curHp;
+
+	}
+
+	//오류 검사
+	private void Error_checking()
+	{
 		if (BSM == null)
 			Debug.LogError("BSM이 없습니다.");
 		if (anim == null)
 			Debug.LogError("AnimatorManager가 없습니다");
-		if(enemyHpBarSlider == null)
+		if (enemyHpBarSlider == null)
 			Debug.LogError("enemyHpBarSlider 없습니다");
-
+		if (sliderFill_Area == null)
+			Debug.LogError("sliderFill_Area가 없습니다");
 	}
 
 	private void Update()
@@ -87,24 +101,17 @@ public class EnemyStateMaschine : MonoBehaviour
 					//enemy로 태그 변경
 					this.gameObject.tag = "DeadEnemy";
 					//영웅을 공격하지 않음
-					Debug.Log("1");
 					BSM.enemyInBattle.Remove(this.gameObject);
-					Debug.Log("2");
-
 					//selector 비활성화
 					select.SetActive(false);
-
+					//리스트에서 삭제
 					RemoveAttackersTarget();
 					RemoveBattleOrder();
-
 					//애니메이션 재생
-					Debug.Log(this.gameObject.name + " Dead!");
-
+					//Debug.Log(this.gameObject.name + " Dead!");
 					alive = false;
 					//적 선택 버튼 초기화
 					BSM.EnemyButtons();
-
-
 					//생존 체크
 					BSM.battleState = PerformAction.checkAlive;
 				}
@@ -121,11 +128,6 @@ public class EnemyStateMaschine : MonoBehaviour
 	{
 		if (BSM.battleOrders[0].attackerName == this.name && !BSM.isEnemyAttack)
 		{
-			//Debug.Log("적공격 실행 " + this.name);
-			//        foreach (var item in BSM.battleOrders)
-			//        {
-			//Debug.Log("적공격 실행 " + item.attackerName);
-			//        }
 			BSM.isEnemyAttack = true;
             currentState = TurnState.ChooseAction;
 			StartCoroutine(WaitTime(0.1f));
@@ -168,9 +170,10 @@ public class EnemyStateMaschine : MonoBehaviour
 		//공격 애니메이션
 		anim.AttackAnim(true);
 		//대기
-		//yield return new WaitForSeconds(0.005f);
-		yield return new WaitForSeconds(anim.GetAnimTime());
-
+		yield return new WaitForSeconds(0.01f);
+		//Debug.Log(anim.GetAnimTime());
+		yield return new WaitForSeconds(anim.GetAnimTime() + 0.1f);
+		
 		DoDamage();
 		//원래위치로 복귀
 		//대미지 
@@ -206,21 +209,21 @@ public class EnemyStateMaschine : MonoBehaviour
 		return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
 	}
 
-	//데미지 입음
+	//데미지 입힘
 	private void DoDamage()
 	{
 		float calc_damage = enemy.curATK + BSM.perform.choosenAttack.attackDamage;
 		heroToAttack.GetComponent<HeroStateMaschine>().TakeDamage(calc_damage);
-		
 	}
 
-	//데미지 입힘
+	//데미지 입음
 	public void TakeDamage(float getDamageAmount)
 	{
 		enemy.curHp -= getDamageAmount;
+		
 		if(enemy.curHp <= 0)
 		{
-			enemyHpBarSlider.value = enemy.curHp;
+			sliderFill_Area.gameObject.SetActive(false);
 			anim.DieAnim(true);
 			enemy.curHp = 0;
 			currentState = TurnState.Dead;
@@ -230,6 +233,8 @@ public class EnemyStateMaschine : MonoBehaviour
 			enemyHpBarSlider.value = enemy.curHp;
 			//Debug.Log("적 데미지");
 			anim.TakeDamageAnim();
+			StartCoroutine(WaitTime(0.01f));
+			StartCoroutine(WaitTime(anim.GetAnimTime()));
 		}
 
 	}
@@ -249,9 +254,9 @@ public class EnemyStateMaschine : MonoBehaviour
 
 			}
 		}
-
 	}
 
+	//배틀 순서에서 삭제
 	private void RemoveBattleOrder()
 	{
 		if (BSM.battleOrders.Count > 0)
@@ -267,6 +272,7 @@ public class EnemyStateMaschine : MonoBehaviour
 		}
 	}
 
+	//대기 코루틴
 	private IEnumerator WaitTime(float _time)
 	{
 		yield return new WaitForSeconds(_time);

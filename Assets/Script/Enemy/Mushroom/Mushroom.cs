@@ -16,16 +16,17 @@ public class Mushroom : EnemyEntity
 	private int curMoveTime = 0;
 	IEnumerator CheckState()
 	{
-		int moveTime = Random.Range(25, 35);
+
 		while (true)
 		{
 			//Debug.Log(state);
 			switch (state)
 			{
-				case State.IDLE:
+				case State.Idle:
 					//TODO : 플레이어가 멀어지면 자신의 구역으로 돌아서 이 상태로 변경
+					int moveTime = Random.Range(25, 35);
 					if (player != null)
-						state = State.CHASE;
+						state = State.Chase;
 
 					anim.SetBool("Move", false);
 					mesh.ResetPath();
@@ -33,13 +34,14 @@ public class Mushroom : EnemyEntity
 					if (curMoveTime >= moveTime)
 					{
 						moveTime = Random.Range(25, 35);
-						state = State.MOVE;
+						state = State.Move;
 					}
+
 					break;
-				case State.MOVE:
+				case State.Move:
 					//TODO : 이따금 랜덤으로 움직임
 					if (player != null)
-						state = State.CHASE;
+						state = State.Chase;
 
 					anim.SetBool("Move", true);
 
@@ -65,9 +67,9 @@ public class Mushroom : EnemyEntity
 						}
 						yield return null;
 					}
-					state = State.IDLE;
+					state = State.Idle;
 					break;
-				case State.CHASE:
+				case State.Chase:
 					//TODO : 플레이어가 범위안에 들어오면 추격함
 					mesh.isStopped = false;
 					mesh.ResetPath();
@@ -82,15 +84,15 @@ public class Mushroom : EnemyEntity
 
 						if (playerDist <= enemyAttackRange)
 						{
-							state = State.ATTACK;
+							state = State.Attack;
 						}
 					}
 					else
 					{
-						state = State.IDLE;
+						state = State.Idle;
 					}
 					break;
-				case State.ATTACK:
+				case State.Attack:
 					//TODO : 플레이어랑 가까이 왔을 때 공격함
 					mesh.isStopped = true;
 					mesh.velocity = Vector3.zero;
@@ -107,13 +109,13 @@ public class Mushroom : EnemyEntity
 						playerDist = Vector3.Distance(player.gameObject.transform.position, this.gameObject.transform.position);
 						if (playerDist >= enemyAttackRange)
 						{
-							state = State.CHASE;
+							state = State.Chase;
 						}
 					}
 					else
 					{
 						mesh.ResetPath();
-						state = State.IDLE;
+						state = State.Idle;
 					}
 					break;
 				default:
@@ -123,6 +125,4 @@ public class Mushroom : EnemyEntity
 		}
 
 	}
-
-
 }

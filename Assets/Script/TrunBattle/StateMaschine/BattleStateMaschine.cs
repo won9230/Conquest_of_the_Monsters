@@ -58,14 +58,12 @@ public class BattleStateMaschine : MonoBehaviour
 	public List<Transform> heroSpawnPoints = new List<Transform>();
 
 	[HideInInspector] public bool isEnemyAttack = false;	//적 공격 판정 여부
-	[HideInInspector] public bool isHeroAttack = false;	//히어로 공격 판정 여부
+	[HideInInspector] public bool isHeroAttack = false;		//히어로 공격 판정 여부
 	private void Awake()
 	{
 		for (int i = 0; i < GameManager.instance.enemyAmount; i++)
 		{
 			GameObject newEnemy = Instantiate(GameManager.instance.enemyToBattle[i], enemySpawnPoints[i].position,Quaternion.Euler(new Vector3(0,180,0)));
-			GameObject newEnemyHpbar = Instantiate(hpBarPrefab, newEnemy.transform.position, newEnemy.transform.rotation);
-			newEnemyHpbar.transform.parent = newEnemy.transform;
 
 			newEnemy.name = newEnemy.GetComponent<EnemyStateMaschine>().enemy.theName + "_" + (i+1);
 			newEnemy.GetComponent<EnemyStateMaschine>().enemy.theName = newEnemy.name;
@@ -83,8 +81,6 @@ public class BattleStateMaschine : MonoBehaviour
 	private void Start()
 	{
 		battleState = PerformAction.Wait;
-		//enemyInBattle.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-		//heroInBattle.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
 
 		perform = new HandleTrun();
 
@@ -164,19 +160,16 @@ public class BattleStateMaschine : MonoBehaviour
 				}
 				break;
 			case PerformAction.Win:
-				Debug.Log("승리");
 				for (int i = 0; i < heroInBattle.Count; i++)
 				{
 					heroInBattle[i].GetComponent<HeroStateMaschine>().currentState = HeroStateMaschine.TurnState.Waiting;
 				}
-
 
 				GameManager.instance.LoadSceneAfterBattle();
 				GameManager.instance.gamestate = GameManager.GameState.World_State;
 				GameManager.instance.enemyToBattle.Clear();
 				break;
 			case PerformAction.Lose:
-				Debug.Log("패배");
 				break;
 			default:
 				break;
@@ -280,8 +273,6 @@ public class BattleStateMaschine : MonoBehaviour
 		}
 	}
 
-
-
 	private void HeroInputDone()
 	{
 		heroInput = HeroGUI.Waiting;
@@ -381,6 +372,4 @@ public class BattleStateMaschine : MonoBehaviour
 		magicPanel.SetActive(false);
 		enemySelectPanel.SetActive(true);
 	}
-
-
 }

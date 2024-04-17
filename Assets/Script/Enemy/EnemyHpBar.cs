@@ -6,5 +6,5 @@ using UnityEngine.UI;
 public class EnemyHpBar : MonoBehaviour
 {
 	private Canvas canvas;
-	private RectTransform 
+	//private RectTransform 
 }

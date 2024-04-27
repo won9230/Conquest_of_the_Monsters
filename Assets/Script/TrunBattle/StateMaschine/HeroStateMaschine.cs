@@ -226,6 +226,9 @@ public class HeroStateMaschine : MonoBehaviour
 		stats.heroHp.text = "HP: " + hero.curHp;
 		stats.heroMp.text = "MP: " + hero.curMp;
 		hpBarSlider = stats.progressBar;
+		hpBarSlider.maxValue = hero.baseHp;
+		hpBarSlider.minValue = 0;
+		hpBarSlider.value = hero.curHp;
 
 		heroPanel.transform.SetParent(heroPanelSpacer, false);
 		

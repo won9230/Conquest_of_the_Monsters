@@ -108,7 +108,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4270874630195617882}
   - component: {fileID: 4669960956897647040}
-  - component: {fileID: 2886224065831782433}
   m_Layer: 0
   m_Name: AttackColl
   m_TagString: Untagged
@@ -152,19 +151,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0.75}
---- !u!114 &2886224065831782433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1808354079792857997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94afa035da9d61b4d8162630e5256187, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyId: 0
 --- !u!1 &2038454771946632930
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,11 +805,11 @@ GameObject:
   - component: {fileID: 6673593226812703079}
   - component: {fileID: 2482930705522270145}
   - component: {fileID: 7374301687454349572}
-  - component: {fileID: 1053215833290891406}
-  - component: {fileID: 8718315211515677125}
+  - component: {fileID: 7537713553048974031}
+  - component: {fileID: 47812916794073224}
   m_Layer: 0
   m_Name: Mushroom
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -938,7 +924,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1053215833290891406
+--- !u!114 &7537713553048974031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -947,7 +933,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8771235923617234965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3509c68ddbce7ae48855e0d813299c71, type: 3}
+  m_Script: {fileID: 11500000, guid: 70b354321f0d1644181aa8d3a2be3719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 0}
@@ -960,8 +946,7 @@ MonoBehaviour:
   enemyAttackRange: 1.5
   player: {fileID: 0}
   actionRadius: 4
-  monsterID: 0
---- !u!114 &8718315211515677125
+--- !u!114 &47812916794073224
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -970,7 +955,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8771235923617234965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79e34224e5f818a468e37cbb04b4341e, type: 3}
+  m_Script: {fileID: 11500000, guid: f6a70e56eca1a7d4aa2de1fead0479f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackColl: {fileID: 1808354079792857997}

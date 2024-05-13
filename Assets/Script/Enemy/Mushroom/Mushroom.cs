@@ -7,15 +7,11 @@ using UnityEngine.AI;
 public class Mushroom : EnemyEntity
 {
 	public int actionRadius = 4;
-	public int monsterID = 0;
-
 	private void Start()
 	{
 		mesh = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		anim = GetComponent<Animator>();
-	
-		if(gameObject.activeSelf)
-			StartCoroutine(CheckState());
+		StartCoroutine(CheckState());
 	}
 	private int curMoveTime = 0;
 	IEnumerator CheckState()
@@ -105,7 +101,7 @@ public class Mushroom : EnemyEntity
 
 					anim.SetBool("Move", false);
 					anim.SetTrigger("Attack");
-					
+
 					yield return new WaitForSeconds(1f);
 
 					if(player != null)

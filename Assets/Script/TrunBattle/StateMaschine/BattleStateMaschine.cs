@@ -168,7 +168,6 @@ public class BattleStateMaschine : MonoBehaviour
 				GameManager.instance.LoadSceneAfterBattle();
 				GameManager.instance.gamestate = GameManager.GameState.World_State;
 				GameManager.instance.enemyToBattle.Clear();
-				
 				break;
 			case PerformAction.Lose:
 				break;

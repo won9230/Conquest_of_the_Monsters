@@ -15,12 +15,7 @@ public class PlayerManager : MonoBehaviour
 	{
 		rigidbody = GetComponent<Rigidbody>();
 		anim = GetComponent<PlayerAnimation>();
-		transform.position = GameManager.instance.lastHeroPosition;
-		
-		GameManager.instance.FindEnemy();
-		GameManager.instance.OffEnemy();
 	}
-	
 	private void FixedUpdate()
 	{
 		if (!isAttack)

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 
@@ -25,9 +27,14 @@ public class GameManager : MonoBehaviour
 
 	public string sceneToLoad;
 	public string lastScene;
-
-	private Vector3 lastHeroPosition;
-
+	//적 리스트
+	public List<GameObject> enemyList = new List<GameObject>();
+	//죽은 적 리스트
+	public List<string> deadEnemyList = new List<string>();
+	//플래이어 좌표
+	public Vector3 lastHeroPosition;
+	//싸우고 있는 적
+	public List<string> battleEnemy = new List<string>();
 	//파티 인원 최대 4명
 	public GameObject[] heroParty = new GameObject[4];
 	public enum GameState
@@ -57,7 +64,6 @@ public class GameManager : MonoBehaviour
 		//Cursor.visible = false;
 		//Cursor.lockState = CursorLockMode.Locked;
 	}
-
 	private void Update()
 	{
 		switch (gamestate)
@@ -93,6 +99,7 @@ public class GameManager : MonoBehaviour
 			enemyToBattle.Add(regions[curRegions].possibleEnemys[Random.Range(0, regions[curRegions].possibleEnemys.Count)]);
 		}
 		lastHeroPosition = GameObject.Find("Player").gameObject.transform.position;
+		//nextHreoPosition = lastHeroPosition;
 		lastScene = SceneManager.GetActiveScene().name;
 		//로드 레벨
 		SceneManager.LoadScene(regions[curRegions].battleScene);
@@ -102,7 +109,28 @@ public class GameManager : MonoBehaviour
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 	}
-	
+	//Enemy찾아서 List에 저장(PlayerManager에서 사용)
+	public void FindEnemy()
+	{
+		enemyList.Clear();
+		GameObject[] tmpEnemys = GameObject.FindGameObjectsWithTag("Enemy");
+		enemyList.AddRange(tmpEnemys);
+	}
+	//죽은 Enemy 찾아서 비활성화(PlayerManager에서 사용)
+	public void OffEnemy()
+	{
+		for (int i = 0; i < enemyList.Count; i++)
+		{
+			if (deadEnemyList.Contains(enemyList[i].name))	//죽는 Enemy랑 이름이 겹치는지 비교
+			{
+				enemyList[i].SetActive(false);
+			}
+		}
+	}
+	public void DeadEnemyListAdd(string _name)
+	{
+		deadEnemyList.Add(_name);
+	}
 	public void LoadNextScene()
 	{
 		SceneManager.LoadScene(sceneToLoad);

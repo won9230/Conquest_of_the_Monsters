@@ -195,7 +195,7 @@ public class HeroStateMaschine : MonoBehaviour
 	public void TakeDamage(float getDamageAmount)
 	{
 		hero.curHp -= getDamageAmount;
-
+		
 		if (hero.curHp <= 0)
 		{
 			//죽음 애니메이션
@@ -226,6 +226,7 @@ public class HeroStateMaschine : MonoBehaviour
 		stats.heroHp.text = "HP: " + hero.curHp;
 		stats.heroMp.text = "MP: " + hero.curMp;
 		hpBarSlider = stats.progressBar;
+		hpBarSlider.interactable = false;
 		hpBarSlider.maxValue = hero.baseHp;
 		hpBarSlider.minValue = 0;
 		hpBarSlider.value = hero.curHp;
@@ -238,5 +239,6 @@ public class HeroStateMaschine : MonoBehaviour
 	{
 		stats.heroHp.text = "HP: " + hero.curHp;
 		stats.heroMp.text = "MP: " + hero.curMp;
+		hpBarSlider.value = hero.curHp;
 	}
 }

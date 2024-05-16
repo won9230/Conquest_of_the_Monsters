@@ -21,6 +21,8 @@ public class BattleStateMaschine : MonoBehaviour
 	public List<BattleOrder> battleOrders = new List<BattleOrder>();
 	public List<GameObject> heroInBattle = new List<GameObject>();
 	public List<GameObject> enemyInBattle = new List<GameObject>();
+	public List<GameObject> heroToManger = new List<GameObject>();
+	public List<GameObject> deadToHero = new List<GameObject>();
 
 	public enum HeroGUI
 	{
@@ -33,7 +35,6 @@ public class BattleStateMaschine : MonoBehaviour
 
 	public HeroGUI heroInput;
 
-	public List<GameObject> heroToManger = new List<GameObject>();
 	private HandleTrun heroChoise;
 
 	public Transform spacer;			
@@ -45,11 +46,12 @@ public class BattleStateMaschine : MonoBehaviour
 	public GameObject hpBarPrefab;      //적 머리 위 hp
 	public Vector3 hpBarOffset = new Vector3(-0.5f, 2.4f, 0);	//적 hp offset
 
-	public GameObject enemyButton;
 	public Transform actionSpacer;		//action 부모
 	public Transform magicSpacer;		//magic버튼 부모
+	public GameObject enemyButton;
 	public GameObject actionButton;
 	public GameObject magicButton;
+	public GameObject gameLosePanel;	//gameLosePanel오브젝트
 	private List<GameObject> atkBtns = new List<GameObject>();
 
 	private List<GameObject> enemyBtns = new List<GameObject>();
@@ -93,6 +95,7 @@ public class BattleStateMaschine : MonoBehaviour
 		enemySelectPanel.SetActive(false);
 		magicPanel.SetActive(false);
 		UIPanel.SetActive(false) ;
+		gameLosePanel.SetActive(false);
 
 		EnemyButtons();
 	}
@@ -163,13 +166,21 @@ public class BattleStateMaschine : MonoBehaviour
 				for (int i = 0; i < heroInBattle.Count; i++)
 				{
 					heroInBattle[i].GetComponent<HeroStateMaschine>().currentState = HeroStateMaschine.TurnState.Waiting;
+					GameManager.instance.PlayerHpSave(heroInBattle[i].GetComponent<HeroStateMaschine>().hero.theName, heroInBattle[i].GetComponent<HeroStateMaschine>().hero.curHp, heroInBattle[i].GetComponent<HeroStateMaschine>().hero.curMp);
 				}
+                for (int i = 0; i < deadToHero.Count; i++)
+                {
+					GameManager.instance.PlayerHpSave(heroInBattle[i].GetComponent<HeroStateMaschine>().hero.theName, 0, heroInBattle[i].GetComponent<HeroStateMaschine>().hero.curMp);
+                }
 
-				GameManager.instance.LoadSceneAfterBattle();
+                GameManager.instance.LoadSceneAfterBattle();
 				GameManager.instance.gamestate = GameManager.GameState.World_State;
 				GameManager.instance.enemyToBattle.Clear();
+
+
 				break;
 			case PerformAction.Lose:
+				gameLosePanel.SetActive(true);
 				break;
 			default:
 				break;
@@ -371,5 +382,14 @@ public class BattleStateMaschine : MonoBehaviour
 		heroChoise.choosenAttack = chooosenMagic;
 		magicPanel.SetActive(false);
 		enemySelectPanel.SetActive(true);
+	}
+
+	public void GameReStart()
+	{
+		GameManager.instance.LoadSceneAfterBattle();
+		GameManager.instance.enemyList.Clear();
+		GameManager.instance.deadEnemyList.Clear();
+		GameManager.instance.battleEnemy.Clear();
+		GameManager.instance.reStart = true;
 	}
 }

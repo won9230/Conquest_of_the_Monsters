@@ -202,8 +202,8 @@ MonoBehaviour:
     curHp: 100
     baseMp: 20
     curMp: 20
-    baseATK: 9
-    curATK: 9
+    baseATK: 100
+    curATK: 100
     baseDEF: 5
     curDEF: 5
     attacks:

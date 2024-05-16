@@ -889,12 +889,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy:
     theName: BattleMushroom
-    baseHp: 5
-    curHp: 5
+    baseHp: 15
+    curHp: 15
     baseMp: 5
     curMp: 5
-    baseATK: 2
-    curATK: 2
+    baseATK: 10
+    curATK: 10
     baseDEF: 2
     curDEF: 2
     attacks:
@@ -1149,7 +1149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7128292984058081349, guid: b1d843a5db2f2c04a9bb2e90676f3ae5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.653
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7128292984058081349, guid: b1d843a5db2f2c04a9bb2e90676f3ae5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1157,7 +1157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7128292984058081349, guid: b1d843a5db2f2c04a9bb2e90676f3ae5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.1900005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7128292984058081349, guid: b1d843a5db2f2c04a9bb2e90676f3ae5, type: 3}
       propertyPath: m_LocalRotation.w

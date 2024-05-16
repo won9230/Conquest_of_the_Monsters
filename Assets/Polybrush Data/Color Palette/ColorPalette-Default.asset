@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf7db05d259ffb47b2b158a2e462d2a, type: 3}
   m_Name: ColorPalette-Default
   m_EditorClassIdentifier: 
-  current: {r: 0.5529412, g: 0.7137255, b: 0.38431376, a: 1}
+  current: {r: 0.41586646, g: 0.5471698, b: 0.28081167, a: 1}
   colors:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 0.866, g: 0.866, b: 0.866, a: 1}
@@ -37,3 +37,4 @@ MonoBehaviour:
   - {r: 0.5529412, g: 0.7137255, b: 0.38431376, a: 1}
   - {r: 0.7058824, g: 0.5568628, b: 0.48235297, a: 1}
   - {r: 0.7058824, g: 0.5568628, b: 0.48235297, a: 1}
+  - {r: 0.5529412, g: 0.7137255, b: 0.38431376, a: 1}

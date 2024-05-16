@@ -82,7 +82,8 @@ public class EnemyStateMaschine : MonoBehaviour
 				UpgradeProgressBar();
 				break;
 			case TurnState.ChooseAction:
-				ChooseAction();
+				if(BSM.heroInBattle.Count != 0)
+					ChooseAction();
 				currentState = TurnState.Waiting;
 				break;
 			case TurnState.Waiting:
@@ -107,8 +108,6 @@ public class EnemyStateMaschine : MonoBehaviour
 					//리스트에서 삭제
 					RemoveAttackersTarget();
 					RemoveBattleOrder();
-					//애니메이션 재생
-					//Debug.Log(this.gameObject.name + " Dead!");
 					alive = false;
 					//적 선택 버튼 초기화
 					BSM.EnemyButtons();
@@ -266,7 +265,7 @@ public class EnemyStateMaschine : MonoBehaviour
 				if (BSM.battleOrders[i].attackerName == this.gameObject.name)
 				{
 					BSM.battleOrders.Remove(BSM.battleOrders[i]);
-					i--;
+					return;
 				}
 			}
 		}

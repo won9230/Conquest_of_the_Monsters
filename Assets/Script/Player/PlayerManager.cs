@@ -11,11 +11,20 @@ public class PlayerManager : MonoBehaviour
 
 	private new Rigidbody rigidbody;
 	private PlayerAnimation anim;
+	
 	public void Start()
 	{
 		rigidbody = GetComponent<Rigidbody>();
 		anim = GetComponent<PlayerAnimation>();
+		if (GameManager.instance.reStart)
+			transform.position = GameManager.instance.reStartHeroPosition;
+		else
+			transform.position = GameManager.instance.lastHeroPosition;
+		
+		GameManager.instance.FindEnemy();
+		GameManager.instance.OffEnemy();
 	}
+	
 	private void FixedUpdate()
 	{
 		if (!isAttack)
@@ -62,8 +71,4 @@ public class PlayerManager : MonoBehaviour
 		isAttack = false;
 	}
 
-	IEnumerator DoDefas()
-	{
-		yield return new WaitForSeconds(0.05f);
-	}
 }

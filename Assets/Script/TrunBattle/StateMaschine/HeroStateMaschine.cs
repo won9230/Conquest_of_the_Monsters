@@ -21,7 +21,6 @@ public class HeroStateMaschine : MonoBehaviour
 	}
 
 	public TurnState currentState;
-	public Slider hpBarSlider;
 	public GameObject select;
 
 	//private float cur_cooldown = 0f;
@@ -35,6 +34,7 @@ public class HeroStateMaschine : MonoBehaviour
 	private bool alive = true;
 	//heroPanel
 	private HeroPanelStats stats;
+	public Slider hpBarSlider;
 	public GameObject heroPanel;
 	private Transform heroPanelSpacer;
 
@@ -53,6 +53,9 @@ public class HeroStateMaschine : MonoBehaviour
 	}
 	private void Start()
 	{
+		//저장 불러오기
+		if (PlayerPrefs.HasKey($"{hero.theName}_hp"))
+			GameManager.instance.PlayerHpLoad(hero.theName, out hero.curHp, out hero.curMp);
 		//패널 만들기
 		CreateHeroPanel();
 		
@@ -93,11 +96,13 @@ public class HeroStateMaschine : MonoBehaviour
 					BSM.heroInBattle.Remove(this.gameObject);
 					//선택 안됨
 					BSM.heroToManger.Remove(this.gameObject);
+					BSM.deadToHero.Add(this.gameObject);
 					//셀렉터 비활성화
 					select.gameObject.SetActive(false);
 					//ui 리셋
-					BSM.attackPanel.SetActive(false);
-					BSM.enemySelectPanel.SetActive(false);
+					//BSM.attackPanel.SetActive(false);
+					//BSM.enemySelectPanel.SetActive(false);
+					RemoveBattleOrder();
 
 					//히어로 입력 리셋
 					BSM.battleState = BattleStateMaschine.PerformAction.checkAlive;
@@ -162,7 +167,7 @@ public class HeroStateMaschine : MonoBehaviour
 		if (BSM.battleState != BattleStateMaschine.PerformAction.Win && BSM.battleState != BattleStateMaschine.PerformAction.Lose)
 		{
 			BSM.battleState = BattleStateMaschine.PerformAction.Wait;
-			//적 상태 초기화
+			//상태 초기화
 			currentState = TurnState.Processing;
 			BSM.BattleNext();   //battleorder다음으로
 		}
@@ -195,7 +200,7 @@ public class HeroStateMaschine : MonoBehaviour
 	public void TakeDamage(float getDamageAmount)
 	{
 		hero.curHp -= getDamageAmount;
-
+		
 		if (hero.curHp <= 0)
 		{
 			//죽음 애니메이션
@@ -226,6 +231,7 @@ public class HeroStateMaschine : MonoBehaviour
 		stats.heroHp.text = "HP: " + hero.curHp;
 		stats.heroMp.text = "MP: " + hero.curMp;
 		hpBarSlider = stats.progressBar;
+		hpBarSlider.interactable = false;
 		hpBarSlider.maxValue = hero.baseHp;
 		hpBarSlider.minValue = 0;
 		hpBarSlider.value = hero.curHp;
@@ -238,5 +244,21 @@ public class HeroStateMaschine : MonoBehaviour
 	{
 		stats.heroHp.text = "HP: " + hero.curHp;
 		stats.heroMp.text = "MP: " + hero.curMp;
+		hpBarSlider.value = hero.curHp;
+	}
+	//배틀순서삭제
+	private void RemoveBattleOrder()
+	{
+		if (BSM.battleOrders.Count > 0)
+		{
+			for (int i = 0; i < BSM.battleOrders.Count; i++)
+			{
+				if (BSM.battleOrders[i].attackerName == this.gameObject.name)
+				{
+					BSM.battleOrders.Remove(BSM.battleOrders[i]);
+					return;
+				}
+			}
+		}
 	}
 }

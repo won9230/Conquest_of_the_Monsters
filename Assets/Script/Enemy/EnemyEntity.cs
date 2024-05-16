@@ -22,8 +22,6 @@ public class EnemyEntity : MonoBehaviour
 	[HideInInspector] public State state = State.Idle;
 
 	public new string name;
-	public int hp;
-	public int mp;
 	//public int range;
 	public float enemyAttackRange = 1.5f;
 	//[SerializeField] private GameObject chaseRange;

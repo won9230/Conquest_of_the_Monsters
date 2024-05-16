@@ -264,12 +264,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy:
     theName: BattleCactus
-    baseHp: 120
-    curHp: 120
+    baseHp: 15
+    curHp: 15
     baseMp: 15
     curMp: 15
-    baseATK: 8
-    curATK: 8
+    baseATK: 100
+    curATK: 100
     baseDEF: 3
     curDEF: 3
     attacks:
@@ -1182,7 +1182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7128292984058081349, guid: b1d843a5db2f2c04a9bb2e90676f3ae5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.653
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7128292984058081349, guid: b1d843a5db2f2c04a9bb2e90676f3ae5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1190,7 +1190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7128292984058081349, guid: b1d843a5db2f2c04a9bb2e90676f3ae5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.19
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7128292984058081349, guid: b1d843a5db2f2c04a9bb2e90676f3ae5, type: 3}
       propertyPath: m_LocalRotation.w

@@ -49,6 +49,7 @@ public class EnemyAI : EnemyEntity
 					anim.SetBool("Move", true);
 
 					curMoveTime = 0;
+					int tmp = 0;
 					mesh.isStopped = false;
 					mesh.ResetPath();
 					mesh.updatePosition = true;
@@ -64,11 +65,13 @@ public class EnemyAI : EnemyEntity
 						mesh.SetDestination(ptmp);
 					while (mesh.pathPending || mesh.remainingDistance > mesh.stoppingDistance)
 					{
+						tmp++;
 						if (player != null)
-						{
 							break;
-						}
-						yield return null;
+						if (tmp >= 25)
+							break;
+
+						yield return new WaitForSeconds(0.1f);
 					}
 					state = State.Idle;
 					break;

@@ -212,11 +212,12 @@ MonoBehaviour:
     intellect: 10
     dexterity: 10
     ahility: 10
-    magicAttacks: []
+    magicAttacks:
+    - {fileID: 855203724206890012, guid: 66fd2effaf55267439b6a97de55a8fc4, type: 3}
   currentState: 0
-  hpBarSlider: {fileID: 0}
   select: {fileID: 4825325169801326560}
   enemyToAttack: {fileID: 0}
+  hpBarSlider: {fileID: 0}
   heroPanel: {fileID: 4485833391261851819, guid: 8f4021c325d5edd4498a135b7a51cd4f, type: 3}
 --- !u!4 &5542730402358612641 stripped
 Transform:

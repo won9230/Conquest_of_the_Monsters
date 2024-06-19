@@ -17,7 +17,10 @@ public class PlayerManager : MonoBehaviour
 		rigidbody = GetComponent<Rigidbody>();
 		anim = GetComponent<PlayerAnimation>();
 		if (GameManager.instance.reStart)
+		{
 			transform.position = GameManager.instance.reStartHeroPosition;
+			GameManager.instance.reStart = false;
+		}
 		else
 			transform.position = GameManager.instance.lastHeroPosition;
 		

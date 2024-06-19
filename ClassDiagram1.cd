@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AnimatorManager" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIiAAAAAAAAAAAAAEgAAAAAAABQAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Anim\AnimatorManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackButton" Collapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Attack\AttackButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseAttack" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgACAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Assets\Script\Attack\BaseAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fire1Spell" Collapsed="true">
+    <Position X="3" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Attack\MagicAttack\Fire1Spell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Poison1Spell" Collapsed="true">
+    <Position X="5.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Attack\MagicAttack\Poison1Spell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HammerSwing" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Attack\MelleAttack\HammerSwing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Slash" Collapsed="true">
+    <Position X="0.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Attack\MelleAttack\Slash.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraManager" Collapsed="true">
+    <Position X="11.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAgiABAAAAIAABIIEAAEBAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Camera\CameraManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackCollEevnt" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Enemy\AttackCollEevnt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyAI" Collapsed="true">
+    <Position X="5.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAQAAAAAIAAAAAAAAAAAAKAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyAI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyAnimEevnt" Collapsed="true">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAACABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyAnimEevnt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyAttackRange" Collapsed="true">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAACIAAAAAAAAAAAAAAAAAAIABQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyAttackRange.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyChaseRange" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAACIAAAAAAAAAAAAAAAAAAIABQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyChaseRange.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyEntity" Collapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAIAAFAAAFAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyHpBar" Collapsed="true">
+    <Position X="10" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Enemy\EnemyHpBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager" Collapsed="true">
+    <Position X="15.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CASIABAA4CgQEAAQAABJFAAgAAJgACAQAAAAEAAAgEE=</HashCode>
+      <FileName>Assets\Script\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerAnimation" Collapsed="true">
+    <Position X="13.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAACAAAAAAAAAAAAABAAAAAAAQAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Player\PlayerAnimation\PlayerAnimation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerAnimationEvent" Collapsed="true">
+    <Position X="15.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAACABAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Player\PlayerAnimation\PlayerAnimationEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerAttackColl" Collapsed="true">
+    <Position X="17" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Player\PlayerAttackColl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerManager" Collapsed="true">
+    <Position X="10" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAIAAABAiAAAAAEAAAAAAAgAAAACAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Player\PlayerManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseClass" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAEAAEAAAAAAAQIAAAAAEIQAAAAAABIAAA=</HashCode>
+      <FileName>Assets\Script\TrunBattle\BaseClasses\BaseClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseEnemy" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAACAAAAA=</HashCode>
+      <FileName>Assets\Script\TrunBattle\BaseClasses\BaseEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseHero" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAABAAAgAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\Script\TrunBattle\BaseClasses\BaseHero.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleCutControl" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAACAAAAQAAAAAAAAAAABAAAAAAAAAAAAAAEQ=</HashCode>
+      <FileName>Assets\Script\TrunBattle\BattleCutControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleOrder" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAEAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\Script\TrunBattle\BattleOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemySelectButton" Collapsed="true">
+    <Position X="11.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAoIAAAA=</HashCode>
+      <FileName>Assets\Script\TrunBattle\EnemySelectButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HandleTrun" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAABAAAAAAAAAAAAAAAAAAAAAQAAAggAAAA=</HashCode>
+      <FileName>Assets\Script\TrunBattle\HandleTrun.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleStateMaschine" Collapsed="true">
+    <Position X="10" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgZAiEJLAKIgEQApACACAAABMASAAgAAAAEAAEDUAEE=</HashCode>
+      <FileName>Assets\Script\TrunBattle\StateMaschine\BattleStateMaschine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyStateMaschine" Collapsed="true">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="EnemyStateMaschine.TurnState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Script\TrunBattle\StateMaschine\EnemyStateMaschine.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAICACABAAKAACCCAANAQSAABAA4AAgEACIEI=</HashCode>
+      <FileName>Assets\Script\TrunBattle\StateMaschine\EnemyStateMaschine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HeroStateMaschine" Collapsed="true">
+    <Position X="11.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAEAA4IGAAABAAKAACAAAAJAASAABAAYAAgEAgIEA=</HashCode>
+      <FileName>Assets\Script\TrunBattle\StateMaschine\HeroStateMaschine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HeroPanelStats" Collapsed="true">
+    <Position X="10" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAEAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\TrunBattle\UI\HeroPanelStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="HeroToEnemy" Collapsed="true">
+    <Position X="10" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\TrunBattle\BattleOrder.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

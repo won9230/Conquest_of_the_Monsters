@@ -264,8 +264,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy:
     theName: BattleCactus
-    baseHp: 15
-    curHp: 15
+    baseHp: 150
+    curHp: 150
     baseMp: 15
     curMp: 15
     baseATK: 100

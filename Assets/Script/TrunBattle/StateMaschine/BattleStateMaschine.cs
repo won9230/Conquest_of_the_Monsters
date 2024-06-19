@@ -51,7 +51,8 @@ public class BattleStateMaschine : MonoBehaviour
 	public GameObject enemyButton;
 	public GameObject actionButton;
 	public GameObject magicButton;
-	public GameObject gameLosePanel;	//gameLosePanel오브젝트
+	public GameObject gameLosePanel;    //gameLosePanel오브젝트
+	public GameObject gameWinPanel;		//gameWinPanel 오브젝트
 	private List<GameObject> atkBtns = new List<GameObject>();
 
 	private List<GameObject> enemyBtns = new List<GameObject>();
@@ -96,6 +97,7 @@ public class BattleStateMaschine : MonoBehaviour
 		magicPanel.SetActive(false);
 		UIPanel.SetActive(false) ;
 		gameLosePanel.SetActive(false);
+		gameWinPanel.SetActive(false);
 
 		EnemyButtons();
 	}
@@ -173,10 +175,7 @@ public class BattleStateMaschine : MonoBehaviour
 					GameManager.instance.PlayerHpSave(heroInBattle[i].GetComponent<HeroStateMaschine>().hero.theName, 0, heroInBattle[i].GetComponent<HeroStateMaschine>().hero.curMp);
                 }
 
-                GameManager.instance.LoadSceneAfterBattle();
-				GameManager.instance.gamestate = GameManager.GameState.World_State;
-				GameManager.instance.enemyToBattle.Clear();
-
+				gameWinPanel.SetActive(true);
 
 				break;
 			case PerformAction.Lose:
@@ -383,13 +382,22 @@ public class BattleStateMaschine : MonoBehaviour
 		magicPanel.SetActive(false);
 		enemySelectPanel.SetActive(true);
 	}
-
+	//게임 재시작 버튼
 	public void GameReStart()
 	{
+		GameManager.instance.GameReStart();
+		for (int i = 0; i < heroInBattle.Count; i++)
+		{
+			heroInBattle[i].GetComponent<HeroStateMaschine>().currentState = HeroStateMaschine.TurnState.Waiting;
+			GameManager.instance.PlayerHpSave(heroInBattle[i].GetComponent<HeroStateMaschine>().hero.theName, heroInBattle[i].GetComponent<HeroStateMaschine>().hero.baseHp, heroInBattle[i].GetComponent<HeroStateMaschine>().hero.baseMp);
+		}
+	}
+	//게임 계속 버튼
+	public void GameNext()
+	{
 		GameManager.instance.LoadSceneAfterBattle();
-		GameManager.instance.enemyList.Clear();
-		GameManager.instance.deadEnemyList.Clear();
-		GameManager.instance.battleEnemy.Clear();
-		GameManager.instance.reStart = true;
+		GameManager.instance.gamestate = GameManager.GameState.World_State;
+		GameManager.instance.enemyToBattle.Clear();
+		gameWinPanel.SetActive(false);
 	}
 }
